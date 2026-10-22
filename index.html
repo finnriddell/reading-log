@@ -72,7 +72,7 @@ h1{font:500 clamp(30px,3.8vw,44px)/1.08 var(--serif);letter-spacing:-.015em;marg
 .chip:hover{border-color:var(--line2)}
 .chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}.chip[aria-pressed=true] .n{color:#d9d2c6}
 .subjects.filtering .chip[aria-pressed=false]{opacity:.55}
-@media (max-width:600px){.subjects{flex-wrap:nowrap;overflow-x:auto;margin:0 calc(-1*var(--gut)) 14px;padding:0 var(--gut) 4px;scrollbar-width:none}.subjects::-webkit-scrollbar{display:none}.chip{flex:none}}
+@media (max-width:600px){.subjects{gap:6px}.chip{height:30px;font-size:13px;padding:0 10px 0 9px;gap:6px}.chip .dot{width:10px;height:10px}details.about summary span{display:none}.controls{gap:8px}.search{flex:1 1 100%}.controls .select{flex:1 1 0;min-width:0}.controls .select select{width:100%}}
 
 /* ── Stage: the playground and its side panel ───────────────────── */
 .stage{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
@@ -225,7 +225,7 @@ const OWNER='Finlay Riddell';
 const DATA_URL='https://script.google.com/macros/s/AKfycbwFF4c2gPk65yuN4HMtmnq2yDI01s-68QLDzhnQJJNKyHeRioZqllzYpaU1wLt3sL8v/exec?format=json';
 const CACHE_KEY='readinglog:v2';            // last good copy, so return visits draw instantly
 const PILE_NEW=250,PILE_MAX=400,PILE_FAV=4.5; // playground = newest 250 + older 4.5+ favourites, max 400
-const BATCH=40;                              // list rows added per batch
+const BATCH=50;                              // list rows added per batch
 
 // Subjects: an article takes the first subject whose words match its themes or title.
 // One soft hue per subject; the rest of the page stays neutral so these read clearly.
@@ -354,9 +354,8 @@ function list(reset){const ol=$('log');
   requestAnimationFrame(()=>ol.querySelectorAll('.tk:not([data-m])').forEach(x=>{x.dataset.m=1;if(x.scrollHeight>x.clientHeight+2){
     const b=el('button','more-link','Read more');b.type='button';b.onclick=()=>{const o=x.classList.toggle('open');b.textContent=o?'Show less':'Read more'};x.after(b)}}));
   $('logcount').textContent=(filtering()?rows.length+' of '+A.length:A.length)+' articles';
-  const lm=$('loadmore');lm.hidden=shown>=rows.length;$('morebtn').textContent='Show more · '+shown+' of '+rows.length}
+  const lm=$('loadmore');lm.hidden=shown>=rows.length;$('morebtn').textContent='Show '+Math.min(BATCH,rows.length-shown)+' more · '+shown+' of '+rows.length}
 $('morebtn').onclick=()=>list(false);
-new IntersectionObserver(es=>{if(es[0].isIntersecting&&shown<rows.length)list(false)},{rootMargin:'400px'}).observe($('loadmore'));
 function reveal(a){if(!ok(a)){F={q:'',s:'',m:0,c:-1};$('q').value='';$('src').value='';$('min').value='0';apply()}
   while(!a.el&&shown<rows.length)list(false);
   if(a.el){a.el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});a.el.classList.add('flash');setTimeout(()=>a.el&&a.el.classList.remove('flash'),1600)}}
@@ -456,9 +455,10 @@ const Play=(()=>{
     for(const c of used){const C=CATS[c],n=B.filter(b=>b.c===c).length;let x,y;
       if(grav){x=cols[c].cx;y=H-LABEL/2-2}else{let top=1e9,sx=0,k=0;for(const b of B)if(b.c===c){top=Math.min(top,b.y-b.e);sx+=b.x;k++}x=sx/k;y=Math.max(60,top-14)}
       cx.globalAlpha=hl&&F.c>=0&&F.c!==c?.35:1;
-      if(grav){const room=cols[c].x1-cols[c].x0-16;let ls=[C.n+'  '+n];cx.font='500 12px Inter,system-ui,sans-serif';
+      if(grav){const room=cols[c].x1-cols[c].x0-16;let ls=[W<600?String(n):C.n+'  '+n];cx.font='500 12px Inter,system-ui,sans-serif';
         if(cx.measureText(ls[0]).width+14>room){const p=C.n.split(' & ');ls=p.length>1?[p[0]+' &',p[1]+'  '+n]:[C.n,String(n)]}
         if(Math.max(...ls.map(l=>cx.measureText(l).width))+14>room)cx.font='500 11px Inter,system-ui,sans-serif';
+        if(Math.max(...ls.map(l=>cx.measureText(l).width))+14>room)ls=[String(n)];
         const y0=H-LABEL/2-2-(ls.length-1)*7.5;
         ls.forEach((l,i)=>{const w=cx.measureText(l).width;if(i===0){cx.fillStyle=hsl(C);cx.beginPath();cx.arc(x-w/2-8,y0,4.5,0,7);cx.fill()}
           cx.fillStyle='#6b655c';cx.fillText(l,x+(i===0?2:0),y0+i*15)});continue}
