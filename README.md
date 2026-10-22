@@ -23,4 +23,4 @@ I designed and directed the project, set the rules, chose the design and tested 
 
 ---
 
-© 2026 Finn Riddell. All rights reserved. The reading notes, scores and takeaways are my own writing. The site's code may be viewed but not reused without permission; get in touch if you'd like to use any of it.
+© 2026 Finlay Riddell. All rights reserved. The reading notes, scores and takeaways are my own writing. The site's code may be viewed but not reused without permission; get in touch if you'd like to use any of it.
