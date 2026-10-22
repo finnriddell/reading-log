@@ -152,12 +152,14 @@ section.block{margin-top:clamp(40px,7vw,72px)}
 .loadmore button{border:1px solid var(--line2);background:var(--paper);border-radius:999px;padding:10px 18px;font-size:14px;cursor:pointer}
 .none{padding:28px 20px;color:var(--muted);text-align:center}
 
-details.about{margin-top:clamp(40px,7vw,72px);background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 20px}
-details.about summary{cursor:pointer;font:500 20px var(--serif);list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.about{margin:18px 0 10px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:12px 16px;max-width:760px}
+details.about summary{cursor:pointer;font:500 16px var(--sans);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+details.about summary span{font-weight:400;color:var(--muted);margin-right:auto;font-size:14px}
+details.about[open]{padding-bottom:16px}
 details.about summary::-webkit-details-marker{display:none}
 details.about summary::after{content:"+";font:400 24px var(--sans);color:var(--muted);transition:transform .25s}
 details.about[open] summary::after{transform:rotate(45deg)}
-details.about p{color:var(--ink2);max-width:68ch;margin:12px 0 0}
+details.about p{color:var(--ink2);max-width:68ch;margin:10px 0 0;font-size:15px}
 footer{padding:28px 0 calc(40px + env(safe-area-inset-bottom));font-size:13px;color:var(--muted)}
 footer p{margin:0;max-width:80ch}
 
@@ -167,8 +169,15 @@ footer p{margin:0;max-width:80ch}
 <body>
 <header class="wrap">
   <p class="kicker"><i aria-hidden="true"></i><span id="kick">A reading log, updated as I read</span></p>
-  <h1>Hi, I’m Finlay. Here’s everything I’ve been reading.</h1>
+  <h1>Hi, I’m Finn. Here’s everything I’ve been reading.</h1>
   <p class="lede" id="lede">Articles from the FT, The New Yorker, Wired, NOEMA and friends. Each one gets a score out of 5 and a few honest lines, written straight after reading. The big bubbles are the ones I loved.</p>
+  <details class="about" id="about">
+    <summary>About this log <span>· why I keep it and how it’s made</span></summary>
+    <p>This is my reading log: every article I read from the FT, The New Yorker, The Economist, Wired, NOEMA and others, scored from 1 to 5 on interest, importance and style, with a short takeaway written straight after reading. I keep it to read more deliberately and to sharpen my own analysis and writing.</p>
+    <p>It is also a small pool of human judgement and learning. Building it has improved my knowledge of AI tools, but it has also strengthened my appreciation for human thinking. The readings come from some of the finest minds writing today. The writing is world class; the judgement is messy and human. Together, this may become valuable when information, data and judgement are swamped by artificially generated ideas, conclusions and writing.</p>
+    <p>I designed and directed the site and coded it with Claude, an AI model. I am responsible for the rules, scoring, design, and terrible spelling. I also checked and tested every change. It runs for free on Google Sheets, Apps Script and GitHub Pages: a small capture page adds each article to the Sheet, and this page reads from it.</p>
+    <p>Some takeaways are private; you’ll see the ones I’ve chosen to share. How the pieces work and how the site has changed are all on <a href="https://github.com/finnriddell/reading-log">GitHub</a>.</p>
+  </details>
 </header>
 
 <main class="wrap">
@@ -205,13 +214,6 @@ footer p{margin:0;max-width:80ch}
     <div class="loadmore" id="loadmore" hidden><button type="button" id="morebtn">Show more</button></div>
   </section>
 
-  <details class="about">
-    <summary>About this log</summary>
-    <p>This is my reading log: every article I read from the FT, The New Yorker, The Economist, Wired, NOEMA and others, scored from 1 to 5 on interest, importance and style, with a short takeaway written straight after reading. I keep it to read more deliberately and to sharpen my own analysis and writing.</p>
-    <p>It is also a small pool of human judgement and learning. Building it has improved my knowledge of AI tools, but it has also strengthened my appreciation for human thinking. The readings come from some of the finest minds writing today. The writing is world class; the judgement is messy and human. Together, this may become valuable when information, data and judgement are swamped by artificially generated ideas, conclusions and writing.</p>
-    <p>I designed and directed the site and coded it with Claude, an AI model. I am responsible for the rules, scoring, design, and terrible spelling. I also checked and tested every change. It runs for free on Google Sheets, Apps Script and GitHub Pages: a small capture page adds each article to the Sheet, and this page reads from it.</p>
-    <p>Some takeaways are private; you’ll see the ones I’ve chosen to share. How the pieces work and how the site has changed are all on <a href="https://github.com/finnriddell/reading-log">GitHub</a>.</p>
-  </details>
 </main>
 
 <footer class="wrap"><p>© 2026 Finlay Riddell. All rights reserved. The reading notes, scores and takeaways are my own writing. The site’s code may be viewed but not reused without permission; get in touch if you’d like to use any of it. Visits are counted anonymously with GoatCounter: no cookies and no personal data.</p></footer>
@@ -369,7 +371,7 @@ $('min').addEventListener('change',e=>{F.m=+e.target.value;apply()});
 const Play=(()=>{
   const box=$('play'),cv=$('cv'),cx=cv.getContext('2d'),tip=$('tip');
   let W=0,H=0,dpr=1,B=[],grav=true,awake=0,drag=null,hover=null,selB=null,cols=[],centres=[],sprites=[],raf=0,visible=true,floor=0;
-  const LABEL=34;                                  // space under the piles for subject names
+  const LABEL=48;                                  // space under the piles for subject names
 
   // one pre-rendered sprite per subject: soft gradient, gentle shadow, a little gloss
   function makeSprites(){sprites=CATS.map(c=>{const S=160,p=24,s=document.createElement('canvas');s.width=s.height=S+p*2;const g=s.getContext('2d'),r=S/2,o=p+r;
@@ -383,7 +385,7 @@ const Play=(()=>{
     const present=[...new Set(B.map(b=>b.c))].sort((x,y)=>B.filter(b=>b.c===y).length-B.filter(b=>b.c===x).length);
     // gravity: one column per subject, width proportional to its share so piles stay in proportion
     const tot=B.reduce((s,b)=>s+b.r*b.r,0)||1;let x=10;cols=[];
-    present.forEach(c=>{const share=B.filter(b=>b.c===c).reduce((s,b)=>s+b.r*b.r,0)/tot,w=Math.max(70,share*(W-20));cols[c]={x0:x,x1:x+w,cx:x+w/2};x+=w});
+    present.forEach(c=>{const share=B.filter(b=>b.c===c).reduce((s,b)=>s+b.r*b.r,0)/tot,w=Math.max(96,share*(W-20));cols[c]={x0:x,x1:x+w,cx:x+w/2};x+=w});
     const k=(W-20)/Math.max(1,x-10);present.forEach(c=>{const C=cols[c];C.x0=10+(C.x0-10)*k;C.x1=10+(C.x1-10)*k;C.cx=(C.x0+C.x1)/2});
     // floating: subjects arranged on a gentle ellipse around the middle
     centres=[];const n=present.length;present.forEach((c,i)=>{const t=-Math.PI/2+i*2*Math.PI/n;
@@ -452,8 +454,14 @@ const Play=(()=>{
     const used=[...new Set(B.map(b=>b.c))];
     for(const c of used){const C=CATS[c],n=B.filter(b=>b.c===c).length;let x,y;
       if(grav){x=cols[c].cx;y=H-LABEL/2-2}else{let top=1e9,sx=0,k=0;for(const b of B)if(b.c===c){top=Math.min(top,b.y-b.e);sx+=b.x;k++}x=sx/k;y=Math.max(60,top-14)}
+      cx.globalAlpha=hl&&F.c>=0&&F.c!==c?.35:1;
+      if(grav){const room=cols[c].x1-cols[c].x0-16;let ls=[C.n+'  '+n];cx.font='500 12px Inter,system-ui,sans-serif';
+        if(cx.measureText(ls[0]).width+14>room){const p=C.n.split(' & ');ls=p.length>1?[p[0]+' &',p[1]+'  '+n]:[C.n,String(n)]}
+        if(Math.max(...ls.map(l=>cx.measureText(l).width))+14>room)cx.font='500 11px Inter,system-ui,sans-serif';
+        const y0=H-LABEL/2-2-(ls.length-1)*7.5;
+        ls.forEach((l,i)=>{const w=cx.measureText(l).width;if(i===0){cx.fillStyle=hsl(C);cx.beginPath();cx.arc(x-w/2-8,y0,4.5,0,7);cx.fill()}
+          cx.fillStyle='#6b655c';cx.fillText(l,x+(i===0?2:0),y0+i*15)});continue}
       let t=C.n+'  '+n,w=cx.measureText(t).width;
-      if(grav){const room=cols[c].x1-cols[c].x0-22;if(w>room){t=C.n.split(' ')[0]+'  '+n;w=cx.measureText(t).width}if(w>room){t=String(n);w=cx.measureText(t).width}}cx.globalAlpha=hl&&F.c>=0&&F.c!==c?.35:1;
       if(!grav){cx.fillStyle='rgba(255,252,247,.92)';cx.beginPath();cx.roundRect(x-w/2-18,y-12,w+30,24,12);cx.fill()}
       cx.fillStyle=hsl(C);cx.beginPath();cx.arc(x-w/2-8,y,4.5,0,7);cx.fill();cx.fillStyle='#6b655c';cx.fillText(t,x+2,y)}
     if(grav){cx.globalAlpha=1;cx.strokeStyle='#ebe3d6';cx.lineWidth=1;cx.beginPath();cx.moveTo(14,floor+.5);cx.lineTo(W-14,floor+.5);cx.stroke()}
@@ -472,7 +480,7 @@ const Play=(()=>{
   function move(x,y){if(!drag)return;hist.push([x,y,performance.now()]);if(hist.length>5)hist.shift();
     drag.px=drag.x;drag.py=drag.y;drag.x=Math.max(drag.r,Math.min(W-drag.r,x+drag.ox));drag.y=Math.max(drag.r,Math.min(floor-drag.r,y+drag.oy));wake(60)}
   function up(x,y){if(!drag)return;const b=drag,moved=Math.hypot(x-start.x,y-start.y),dt=performance.now()-start.t;
-    if(moved<6&&dt<450){b.px=b.x;b.py=b.y;selB=b;choose(b.a)}
+    if(moved<6&&dt<450){b.px=b.x;b.py=b.y;if(selB===b){selB=null;sel=null;panel()}else{selB=b;choose(b.a)}}
     else{const h0=hist[0],h1=hist[hist.length-1],t=Math.max(16,h1[2]-h0[2]);const vx=(h1[0]-h0[0])/t*16,vy=(h1[1]-h0[1])/t*16;b.px=b.x-vx;b.py=b.y-vy}
     drag=null;box.style.cursor='';wake(240)}
   cv.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')return;const[x,y]=pos(e);if(down(x,y,2)){cv.setPointerCapture(e.pointerId);e.preventDefault()}});
