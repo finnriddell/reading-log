@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finlay Riddell’s reading log</title>
+<meta name="description" content="Every article I read from the FT, The New Yorker, The Economist, Wired, NOEMA and others, scored and summarised by hand.">
+<meta property="og:title" content="Finlay Riddell’s reading log">
+<meta property="og:description" content="Every article I read, scored and summarised by hand, shown as a pile of bubbles.">
+<meta property="og:type" content="website">
+<meta name="author" content="Finlay Riddell">
+<meta property="article:author" content="Finlay Riddell">
+<meta property="og:url" content="https://finnriddell.github.io/reading-log/">
+<meta property="og:image" content="https://finnriddell.github.io/reading-log/preview.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A pile of coloured bubbles, one per article read, under the title Finlay Riddell’s reading log">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://finnriddell.github.io/reading-log/v1/"><meta name="robots" content="noindex">
+<!-- anonymous visit counts (GoatCounter: no cookies, no personal data) -->
+
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='11' cy='21' r='9' fill='%2393b7d6'/%3E%3Ccircle cx='23' cy='22' r='7' fill='%23b49ad6'/%3E%3Ccircle cx='17' cy='9' r='6' fill='%23e5a98d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--rw:300px}
+*{box-sizing:border-box}
+body{margin:0;background:#000;color:#eee;font:16px/1.45 system-ui,sans-serif}
+:root{--serif:Newsreader,Georgia,'Times New Roman',serif}
+header{padding:18px 16px 2px}
+h1{font:600 clamp(26px,4.2vw,36px)/1.1 var(--serif);margin:0 0 6px;letter-spacing:-.01em}
+#sub{margin:0 0 8px;font:400 clamp(16px,2vw,19px)/1.35 var(--serif);color:#cfcac2}
+#how{margin:0 0 6px;font-size:13px;color:#999}
+#cats{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
+#cats button{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;font-size:13px;border-radius:14px;background:none;color:#ccc;border-color:#333}
+#cats button[aria-pressed=true]{border-color:#eee;color:#fff;background:#1a1a1a}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
+#top{margin:14px 0 6px}#top h2{font:600 24px var(--serif);margin:0 0 10px}
+#tops{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.tc{background:#0d0d0d;border:1px solid #2a2a2a;border-top:3px solid var(--c);border-radius:8px;padding:10px 12px}
+.tc a,.tc span.t{display:block;font:600 16px/1.25 var(--serif);color:#eee;text-decoration:none}.tc a:hover{text-decoration:underline}
+.tc .m{font-size:12px;margin:4px 0}.tc.x{cursor:pointer}.tc.x:hover{border-color:#444}.tc p.open{display:block;-webkit-line-clamp:unset}.tc .rm{background:none;border:0;padding:4px 0 0;color:#a9d4ff;font-size:13px;cursor:pointer;text-decoration:underline}.tc a::after{content:' \2197';font-size:.75em;color:#888}.tc p{margin:0;font-size:13px;color:#bbb;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.lk{background:none;border:0;border-radius:0;padding:0;color:#9cf;font:inherit;text-decoration:underline;cursor:pointer;white-space:nowrap}
+details{color:#ccc;max-width:760px;font-size:15px}summary{cursor:pointer}
+#bar{position:sticky;top:0;z-index:6;background:#000;padding:8px 16px 6px}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+input,select,button{font:inherit;color:#eee;background:#111;border:1px solid #555;border-radius:6px;padding:8px 10px}
+input{flex:1 1 160px;min-width:0}
+select{flex:0 0 auto;-webkit-appearance:none;appearance:none;padding-right:30px;background:#111 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23ccc' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 12px center}
+:focus-visible{outline:2px solid #fff;outline-offset:2px}
+#key{display:flex;flex-wrap:wrap;gap:6px;padding:8px 0 2px}
+#key button{padding:3px 10px;font-size:14px;border-radius:14px;background:none;color:#ccc;border-color:#444}
+#key button[aria-pressed=true]{background:#eee;color:#000}
+#hero{display:block}
+canvas{position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;z-index:4}
+#lv{padding:8px 16px 90px;margin-left:clamp(0px,4vw,60px);max-width:min(760px,calc(100vw - var(--rw) - 70px))}
+@media(max-width:759px){#lv{max-width:none;margin-left:0}}
+ol{list-style:none;margin:0;padding:0}
+#lv,#lv li{scroll-margin-top:calc(var(--bh,140px) + 10px)}
+li .tk{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+li .tk.open{display:block;-webkit-line-clamp:unset}
+li .rm{background:none;border:0;padding:2px 0 0;color:#a9d4ff;font-size:14px;cursor:pointer;text-decoration:underline}
+#more{display:block;margin:22px auto 0;padding:9px 18px;border-radius:20px;border-color:#444}
+li{padding:12px 0 12px 12px;border-bottom:1px solid #222;border-left:3px solid transparent;transition:border-color .2s}
+li.iv{border-left-color:hsl(38 95% 58%)}
+li a{color:#a9d4ff;font:400 19px/1.3 var(--serif)}li span.t{font:400 19px/1.3 var(--serif)}
+li.mh{border:0;padding:22px 0 2px}li.mh h2{margin:0;font:600 24px var(--serif)}
+.m{color:#aaa;font-size:14px}
+#tip{position:fixed;z-index:9;max-width:260px;background:#111;border:1px solid #666;border-radius:6px;padding:6px 8px;font-size:14px;pointer-events:none}
+#card{position:fixed;z-index:8;left:8px;right:8px;bottom:8px;max-width:520px;background:#111;border:1px solid #666;border-radius:10px;padding:12px 14px;max-height:45vh;overflow:auto}
+#card h2{font:600 19px/1.25 var(--serif);margin:0 0 4px}#card a{color:#9cf}#card p{margin:6px 0 0}
+#card button{margin:8px 8px 0 0}
+#msg{padding:0 16px;color:#ffb4a8}
+</style></head><body>
+<header><h1 id="name"></h1>
+<p id="sub"></p>
+<p id="how">Bigger bubble = higher score · newest at the top · colour = subject · <span id="tapw">click</span> a bubble to open it · <button id="go" class="lk">Top reads and the full list ↓</button></p>
+<div id="cats" aria-label="Filter by subject"></div>
+<details id="about"><summary>About this log</summary>
+<p>This is my reading log: every article I read from the FT, The New Yorker, The Economist, Wired, NOEMA and others, scored from 1 to 5 on interest, importance and style, with a short takeaway written straight after reading. I keep it to read more deliberately and to sharpen my own analysis and writing.</p>
+<p>It is also a small pool of human judgement and learning. Building it has improved my knowledge of AI tools, but it has also strengthened my appreciation for human thinking. The readings come from some of the finest minds writing today. The writing is world class; the judgement is messy and human. Together, this may become valuable when information, data and judgement are swamped by artificially generated ideas, conclusions and writing.</p>
+<p>I designed and directed the site and coded it with Claude, an AI model. I am responsible for the rules, scoring, design, and terrible spelling. I also checked and tested every change. It runs for free on Google Sheets and Apps Script: a small capture page adds each article to the Sheet, and this page reads from it.</p>
+<p>Favourites stay large as the pile ages, so the best reads are easy to find. Some takeaways are private; you'll see the ones I've chosen to share.</p>
+<p id="wu" hidden><a id="wul" target="_blank" rel="noopener">Read how I built it →</a></p></details></header>
+<div id="bar"><div class="row">
+<input id="q" type="search" placeholder="Search title, author, theme" aria-label="Search">
+<select id="src" hidden aria-label="Source"><option value="">All sources</option></select>
+<select id="min" aria-label="Minimum score"><option value="0">Any score</option><option value="1.5">1.5+</option><option value="2">2+</option><option value="2.5">2.5+</option><option value="3">3+</option><option value="3.5">3.5+</option><option value="4">4+</option><option value="4.5">4.5+</option><option value="5">5 only</option></select>
+</div><div id="key" aria-label="Filter by source"></div></div>
+<p id="msg" role="status">Loading…</p>
+<section id="hero" aria-label="Pile of bubbles, one per article, newest at the top. The full list follows below."></section>
+<main id="lv"><section id="top" aria-labelledby="toph" hidden><h2 id="toph">Top reads</h2><div id="tops"></div></section><ol id="list"></ol>
+<footer class="m" style="padding:40px 0 0;font-size:13px;color:#888">© 2026 Finlay Riddell. All rights reserved. The reading notes, scores and takeaways are my own writing. The site’s code may be viewed but not reused without permission; get in touch if you’d like to use any of it. Visits are counted anonymously with GoatCounter: no cookies and no personal data.</footer></main>
+<canvas id="c" aria-hidden="true"></canvas>
+<div id="tip" hidden></div>
+<div id="card" role="region" aria-live="polite" aria-label="Article details" hidden></div>
+<script>
+const $=id=>document.getElementById(id),cv=$('c'),cx=cv.getContext('2d'),GUT=54,GR=34;
+const AMB='hsl(38 95% 58%)';
+// ── edit these two lines ──
+const OWNER='Finlay Riddell';          // your name, as shown in the heading
+const WRITEUP_URL='';                // link to your write-up; leave '' to hide it
+// where the articles come from: your public Apps Script address with ?format=json on the end
+const DATA_URL='https://script.google.com/macros/s/AKfycbwFF4c2gPk65yuN4HMtmnq2yDI01s-68QLDzhnQJJNKyHeRioZqllzYpaU1wLt3sL8v/exec?format=json';
+const PILE_NEW=250,PILE_MAX=400,PILE_FAV=4.5;  // pile = newest 250, plus older articles scored 4.5+, up to 400 bubbles
+// subjects: an article takes the first subject whose words match its themes or title
+const CATS=[
+ {n:'Science & climate',h:75,s:32,re:/climate|beef|el ni|environment|space|exoplanet|science|biohazard|plague/},
+ {n:'World & China',h:125,s:24,re:/china|chinese|beijing|alibaba|\bus vs|\beu\b|europe|russia|ukrain|putin|iran|pakistan|\bdrc\b|congo|syria|foreign|\bwar\b|world (war|power|policy)|geopolit|middle.power|\blaos?\b|france|french|latin|diplomacy|sovereign|nuclear/},
+ {n:'Economy & markets',h:215,s:30,re:/econom|financ|funding|stock|market|debt|bond|\btax|capitalis|\bjobs?\b|recruit|unemploy|labou?r|trade|investment|\bboom/},
+ {n:'Politics & power',h:345,s:32,re:/politic|democra|trump|hegseth|\bice\b|whitehall|government|\blaws?\b|legal|punishment|musk|media|press|election|mid.?term|military|defence/},
+ {n:'AI & tech',h:265,s:30,re:/\bai\b|a\.i\.|tech|agent|chip|semi.?cond|data.?cent|cyber|surveil|anthropic|openai|muse|\bmeta\b|machine|digital|software|internet|deepfake|agi|asi|claude/},
+ {n:'Culture & ideas',h:18,s:34,re:/./}];
+const cat=a=>a.c??(a.c=CATS.findIndex(c=>c.re.test((a.themes+' '+a.title).toLowerCase())));
+const col=(a,L)=>{const c=CATS[cat(a)];return`hsl(${c.h} ${c.s}% ${L}%)`};
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let P=[],settled=0,A=[],B=[],G=[],W=0,VH=0,h0=0,top0=0,t0=0,mob=false,railX=0,railY=0,F={q:'',s:'',m:0,c:-1},more=false,selA=null,BIAS=.05,cardY=0;
+const fmt=d=>d?new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'';
+const mon=t=>new Date(t).toLocaleDateString('en-GB',{month:'long',year:'numeric'});
+// size follows score strongly; age shrinks a bubble, low scores much faster than high ones
+function weight(a){const s=a.score??2.5,age=(Date.now()-a.t)/864e5,tau=15*2**(s-1);return(((s-1)/4)**1.7)*(.45+.55*Math.exp(-age/tau))}
+const ok=a=>(!F.s||a.source===F.s)&&(F.c<0||cat(a)===F.c)&&(a.score??0)>=F.m&&(!F.q||[a.title,a.author,a.themes,a.takeaway,a.source].join(' ').toLowerCase().includes(F.q));
+const act=()=>!!(F.q||F.s||F.m||F.c>=0);
+const BATCH=50;let shown=BATCH;
+function filt(){shown=BATCH;F={q:$('q').value.toLowerCase(),s:$('src').value,m:+$('min').value,c:F.c};list();key();cats()}
+function init(d){
+  A=d.map(a=>({...a,t:a.date?Date.parse(a.date):Date.now()})).sort((x,y)=>x.t-y.t);
+  [...new Set(A.map(a=>a.source))].sort().forEach(s=>{const o=document.createElement('option');o.textContent=o.value=s;$('src').append(o)});
+  $('msg').hidden=true;pile();head();tops();filt();build();
+}
+function pile(){const n=A.length;if(n<=PILE_NEW){P=A;return}
+  const fav=A.slice(0,n-PILE_NEW).filter(a=>(a.score??0)>=PILE_FAV).sort((x,y)=>(y.score-x.score)||(y.t-x.t)).slice(0,PILE_MAX-PILE_NEW);
+  const keep=new Set(fav);P=A.filter((a,i)=>i>=n-PILE_NEW||keep.has(a))}
+function head(){
+  $('name').textContent=OWNER?OWNER+'’s reading log':'Reading log';
+  const first=A.length?new Date(A[0].t).toLocaleDateString('en-GB',{day:'numeric',month:'long'}):'';
+  $('sub').textContent=A.length+' articles since '+first+', each read, scored and summarised by hand.';
+  if(P.length<A.length)$('sub').textContent+=' The pile shows the newest '+PILE_NEW+' and older favourites; all '+A.length+' are in the list below.';
+  $('tapw').textContent=matchMedia('(pointer:coarse)').matches?'tap':'click';
+  if(WRITEUP_URL){$('wul').href=WRITEUP_URL;$('wu').hidden=false}}
+function cats(){const k=$('cats');k.replaceChildren();const n=CATS.map(()=>0);A.forEach(a=>n[cat(a)]++);
+  CATS.forEach((c,i)=>{if(!n[i])return;const b=document.createElement('button'),d=document.createElement('span');d.className='dot';d.style.background=`hsl(${c.h} ${c.s+10}% 66%)`;
+    b.append(d,c.n+' '+n[i]);b.setAttribute('aria-pressed',F.c===i);b.onclick=()=>{F.c=F.c===i?-1:i;filt()};k.append(b)})}
+function tops(){const T=A.filter(a=>a.score!=null).sort((x,y)=>(y.score-x.score)||(!!y.takeaway-!!x.takeaway)||(y.t-x.t)).slice(0,5),w=$('tops');w.replaceChildren();
+  T.forEach(a=>{const c=document.createElement('article');c.className='tc';c.style.setProperty('--c',col(a,64));
+    const t=document.createElement(/^https?:/.test(a.url)?'a':'span');t.textContent=a.title;if(t.tagName==='A'){t.href=a.url;t.target='_blank';t.rel='noopener noreferrer'}else t.className='t';
+    const m=document.createElement('div');m.className='m';m.textContent=[a.source,new Date(a.t).toLocaleDateString('en-GB',{day:'numeric',month:'short'}),a.score+'/5'].join(' · ');
+    c.append(t,m);if(a.takeaway){const p=document.createElement('p');p.textContent=a.takeaway;c.append(p)}w.append(c)});
+  $('top').hidden=!T.length;
+  // the whole card opens to show the full takeaway; only the title goes to the article
+  w.querySelectorAll('.tc').forEach(c=>{const p=c.querySelector('p');if(!p||p.scrollHeight<=p.clientHeight+2)return;
+    const b=document.createElement('button');b.className='rm';b.textContent='Read more';c.append(b);c.classList.add('x');
+    const tog=()=>{const o=p.classList.toggle('open');b.textContent=o?'Show less':'Read more'};
+    c.addEventListener('click',e=>{if(e.target.closest('a'))return;tog()})})}
+// shared physics: gravity pile, no overlaps, newer bubbles float slightly upward
+function phys(L,x0,x1,fl){
+  for(const b of L){const vx=(b.x-b.px)*.985,vy=(b.y-b.py)*.985;b.px=b.x;b.py=b.y;b.x+=vx;b.y+=vy+.45}
+  let mr=1;for(const b of L)if(b.r>mr)mr=b.r;const cs=2*mr;
+  for(let it=0;it<4;it++){
+    // only compare bubbles in neighbouring grid cells, so the cost grows with the count, not its square
+    const g=new Map();for(let i=0;i<L.length;i++){const b=L[i],c=Math.floor(b.x/cs)*1e5+Math.floor(b.y/cs);let a=g.get(c);if(!a)g.set(c,a=[]);a.push(i)}
+    for(let i=0;i<L.length;i++){const p=L[i],gx=Math.floor(p.x/cs),gy=Math.floor(p.y/cs);
+      for(let ox=-1;ox<=1;ox++)for(let oy=-1;oy<=1;oy++){const a=g.get((gx+ox)*1e5+gy+oy);if(!a)continue;
+        for(const j of a){if(j<=i)continue;
+      const q=L[j],dx=q.x-p.x,dy=q.y-p.y,m=p.r+q.r;if(Math.abs(dx)>m||Math.abs(dy)>m)continue;
+      const d=Math.hypot(dx,dy)||.01;if(d<m){const f=(m-d)/2/d;p.x-=dx*f;p.y-=dy*f;q.x+=dx*f;q.y+=dy*f;const bs=BIAS*(q.f-p.f);p.y+=bs;q.y-=bs}}}}
+    for(const b of L){b.x=Math.min(x1-b.r,Math.max(x0+b.r,b.x));if(b.y>fl-b.r)b.y=fl-b.r}}
+}
+function hstep(){if(settled>90)return;const now=performance.now(),L=[];for(const b of B){if(!b.on&&now-t0>=b.at)b.on=true;if(b.on)L.push(b)}phys(L,GUT,W,h0);
+  // once every bubble has landed and nothing is moving, stop doing the maths
+  if(L.length===B.length){let mv=0;for(const b of L)mv+=Math.abs(b.x-b.px)+Math.abs(b.y-b.py);settled=mv/L.length<.03?settled+1:0}}
+function build(){
+  const dpr=devicePixelRatio||1;W=innerWidth;VH=innerHeight;mob=W<760;
+  cv.width=W*dpr;cv.height=VH*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
+  document.documentElement.style.setProperty('--bh',$('bar').offsetHeight+'px');
+  const hero=$('hero');top0=hero.getBoundingClientRect().top+scrollY;h0=Math.max(420,VH-top0-16);hero.style.height=h0+'px';
+  const n=P.length,r0=P.map(a=>7+55*weight(a)),area=r0.reduce((s,r)=>s+Math.PI*r*r,0);
+  const k=Math.min(1.8,Math.sqrt(.5*(W-GUT)*h0/Math.max(area,1))),gap=Math.min(40,3500/Math.max(n,1));t0=performance.now();
+  const gm={};G=[];
+  settled=0;B=P.map((a,i)=>{const r=Math.max(8,r0[i]*k),f=n>1?i/(n-1):1,x=GUT+r+Math.random()*(W-GUT-2*r);
+    const b={a,r,x,y:-r,px:x,py:-r,f,at:reduce?0:i*gap,on:false,iv:false};
+    const d=new Date(a.t),key=d.getFullYear()*12+d.getMonth();
+    if(!gm[key]){gm[key]={l:d.toLocaleDateString('en-GB',{month:'short'})+(d.getFullYear()!==new Date().getFullYear()?" '"+String(d.getFullYear()).slice(2):''),b:[]};G.push(gm[key])}
+    gm[key].b.push(b);return b});
+  if(!mob)rail(r0,area);else document.documentElement.style.setProperty('--rw','0px');
+  if(reduce){B.forEach((b,i)=>{b.on=true;b.y=b.py=h0*.3-i*3});for(let i=0;i<900;i++)hstep()}
+  }
+// the same bubbles settled again in a tall narrow pile: this is where the big pile docks
+function rail(r0,area){
+  const RW=Math.max(200,Math.min(340,W*.24)),RH=VH-($('bar').offsetHeight+14)-14,n=B.length;
+  railX=W-RW-16;railY=$('bar').offsetHeight+14;document.documentElement.style.setProperty('--rw',(RW+16)+'px');
+  const kr=Math.min(1,Math.sqrt(.55*(RW-GR)*RH/Math.max(area,1)));
+  const S=B.map((b,i)=>{const r=Math.max(3,r0[i]*kr),x=GR+r+Math.random()*(RW-GR-2*r);return{x,y:-r,px:x,py:-r,r,f:b.f}});
+  for(let t=0;t<n*3+450;t++){const L=[];for(let i=0;i<n;i++)if(t>=i*3)L.push(S[i]);phys(L,GR,RW,RH)}
+  B.forEach((b,i)=>b.s=S[i]);
+}
+const prog=()=>mob?0:Math.min(1,scrollY/(.75*h0)),ease=()=>{const p=prog();return p*p*(3-2*p)};
+function pos(b,e){const hy=top0+b.y-(mob?scrollY:0);if(mob||!b.s)return[b.x,hy,b.r];
+  return[b.x+(railX+b.s.x-b.x)*e,hy+(railY+b.s.y-hy)*e,b.r+(b.s.r-b.r)*e]}
+function view(){const top=($('bar').offsetHeight)+16,bot=VH*.62;
+  for(const b of B){const el=b.a.el;let v=false;if(el&&scrollY>0){const r=el.getBoundingClientRect();v=r.bottom>top&&r.top<bot}
+    if(v!==b.iv){b.iv=v;if(el)el.classList.toggle('iv',v)}}}
+function draw(){
+  const e=ease();if(mob||prog()<1)hstep();
+  cx.clearRect(0,0,W,VH);const hl=act();const cb=Math.max(0,$('bar').getBoundingClientRect().bottom);cx.save();cx.beginPath();cx.rect(0,cb,W,VH-cb);cx.clip();
+  for(const b of B){if(!b.on)continue;const[x,y,r]=pos(b,e);if(y+r<0||y-r>VH)continue;const m=ok(b.a);cx.globalAlpha=m?1:.12;
+    cx.beginPath();cx.arc(x,y,r,0,7);cx.fillStyle=(b.iv||b.a===selA)?AMB:col(b.a,46+28*b.f);cx.fill();
+    if(r>=34&&e<.15){cx.fillStyle='#000';const fs=Math.max(10,r/4.2);cx.font='600 '+fs+'px Newsreader,Georgia,serif';cx.textAlign='center';
+      const w=b.a.title.split(' '),n=Math.floor(2*r*.8/(fs*.55)),ls=[];let l='';
+      for(const t of w){if((l+' '+t).trim().length>n){ls.push(l);l=t}else l=(l+' '+t).trim()}ls.push(l);
+      const sh=ls.slice(0,3);if(ls.length>3)sh[2]=sh[2].slice(0,n-1)+'…';
+      sh.forEach((s,i)=>cx.fillText(s,x,y+(i-(sh.length-1)/2)*fs*1.15+fs*.3))}}
+  cx.globalAlpha=1;cx.fillStyle='#888';cx.font='13px system-ui';cx.textAlign='left';
+  let ly=-99;const lx=mob?8:8+(railX+2-8)*e;
+  for(let gi=G.length-1;gi>=0;gi--){const g=G[gi];let sh=0,sr=0,c=0;for(const b of g.b)if(b.on){sh+=b.y;sr+=b.s?b.s.y:b.y;c++}
+    if(g.b.length<6||c<6)continue;const hy=top0+sh/c-(mob?scrollY:0),ry=railY+sr/c,y=mob?hy:hy+(ry-hy)*e;
+    if(y-ly>20&&y>20){cx.fillText(g.l,lx,y+4);ly=y}}
+  cx.restore();$('lv').style.opacity=mob?1:Math.max(0,Math.min(1,(prog()-.5)*2.5));
+  view();requestAnimationFrame(draw);
+}
+function card(a,pt){
+  const c=$('card');c.replaceChildren();c.hidden=false;
+  const go=()=>reveal(a);
+  const x=document.createElement('button');x.textContent='Close';x.onclick=()=>{c.hidden=true;selA=null};
+  const h=document.createElement('h2');
+  if(/^https?:\/\//.test(a.url)){const l=document.createElement('a');l.href=a.url;l.target='_blank';l.rel='noopener noreferrer';l.textContent=a.title;h.append(l)}else h.textContent=a.title;
+  const add=(t,cls)=>{if(!t)return;const p=document.createElement('p');p.textContent=t;if(cls)p.className=cls;c.append(p)};
+  c.append(h);
+  add([a.source,a.author,a.pub?'published '+fmt(a.pub):'',a.date?'read '+fmt(a.date):''].filter(Boolean).join(' · '),'m');
+  add(a.score!=null?'Score '+a.score+' / 5':'Not scored yet','m');add(CATS[cat(a)].n+(a.themes?' · '+a.themes:''),'m');add(a.takeaway);add(a.liked,'m');
+  if(ok(a)){const g=document.createElement('button');g.textContent='Find in list ↓';g.onclick=go;c.append(g)}c.append(x);
+  const w=Math.min(520,W-16),s=c.style;s.left=s.right=s.top=s.bottom='auto';cardY=scrollY;
+  if(pt&&pt[0]-pt[2]>w+16){s.left='8px';s.bottom='8px'}
+  else if(pt&&W-(pt[0]+pt[2])>w+16){s.right='8px';s.bottom='8px'}
+  else{s.left='8px';s.right=W<700?'8px':'auto';if(pt&&pt[1]>VH*.5)s.top=($('bar').getBoundingClientRect().bottom+8)+'px';else s.bottom='8px'}
+}
+function hit(ev){const e=ease(),tol=ev.pointerType==='touch'?18:8;let best=null,bd=1e9;
+  for(const b of B){if(!b.on||!ok(b.a))continue;const[x,y,r]=pos(b,e),d=Math.hypot(x-ev.clientX,y-ev.clientY)-r;if(d<bd){bd=d;best=b}}return bd<tol?best:null}
+const SKIP='a,button,input,select,summary,#card,#bar,header,#lv li';
+addEventListener('click',ev=>{if(ev.target.closest(SKIP))return;const b=hit(ev);if(!b)return;
+  if(ease()>.6){reveal(b.a)}else{selA=b.a;card(b.a,pos(b,ease()))}});
+addEventListener('pointermove',ev=>{if(ev.pointerType==='touch')return;const t=$('tip');
+  const b=ev.target.closest&&ev.target.closest(SKIP)?null:hit(ev);
+  if(!b){t.hidden=true;document.body.style.cursor='';return}document.body.style.cursor='pointer';t.hidden=false;
+  t.textContent=b.a.title+' · '+b.a.source+(b.a.score!=null?' · '+b.a.score+'/5':'');
+  t.style.left=Math.max(8,Math.min(ev.clientX+14,innerWidth-270))+'px';t.style.top=(ev.clientY>innerHeight-110?ev.clientY-80:ev.clientY+14)+'px'});
+addEventListener('scroll',()=>{$('tip').hidden=true;const c=$('card');if(!c.hidden&&Math.abs(scrollY-cardY)>40){c.hidden=true;selA=null}},{passive:true});
+function key(){const k=$('key');k.replaceChildren();const n={};A.forEach(a=>n[a.source]=(n[a.source]||0)+1);
+  const all=Object.keys(n).sort((x,y)=>n[y]-n[x]),show=more?all:all.slice(0,6);if(F.s&&!show.includes(F.s))show.push(F.s);
+  show.forEach(s=>{const b=document.createElement('button');b.textContent=s+' '+n[s];b.setAttribute('aria-pressed',F.s===s);
+    b.onclick=()=>{$('src').value=F.s===s?'':s;filt()};k.append(b)});
+  if(all.length>6){const m=document.createElement('button');m.textContent=more?'Fewer':'More ('+(all.length-6)+')';m.onclick=()=>{more=!more;key()};k.append(m)}document.documentElement.style.setProperty('--bh',$('bar').offsetHeight+'px')}
+function list(){const ol=$('list');ol.replaceChildren();A.forEach(a=>a.el=null);let last='';
+  const mk=a=>{const d=new Date(a.t);return d.getFullYear()+'-'+d.getMonth()};
+  const all=A.map((a,i)=>[a,i]).filter(([a])=>ok(a)).reverse();
+  all.slice(0,shown).forEach(([a,i])=>{
+    if(mk(a)!==last){last=mk(a);const h=document.createElement('li'),t=document.createElement('h2');h.className='mh';t.textContent=mon(a.t);h.append(t);ol.append(h)}
+    const li=document.createElement('li'),t=document.createElement(/^https?:/.test(a.url)?'a':'span');li.id='a'+i;a.el=li;
+    t.textContent=a.title;if(t.tagName==='A'){t.href=a.url;t.target='_blank';t.rel='noopener noreferrer'}
+    if(t.tagName==='SPAN')t.className='t';const d=document.createElement('div');d.className='m';const dt=document.createElement('span');dt.className='dot';dt.style.cssText='margin-right:7px;background:'+col(a,62);
+    d.textContent=[a.source,a.author,fmt(a.date),a.score!=null?'Score '+a.score:'',a.themes].filter(Boolean).join(' · ');d.prepend(dt);
+    li.append(t,d);if(a.takeaway){const x=document.createElement('div');x.className='tk';x.textContent=a.takeaway;li.append(x)}ol.append(li)});
+  // takeaways show two lines; "Read more" appears only where there is more to read
+  ol.querySelectorAll('.tk').forEach(x=>{if(x.scrollHeight>x.clientHeight+2){const b=document.createElement('button');b.className='rm';b.textContent='Read more';
+    b.onclick=()=>{const o=x.classList.toggle('open');b.textContent=o?'Show less':'Read more'};x.after(b)}});
+  const old=$('more');if(old)old.remove();
+  if(all.length>shown){const m=document.createElement('button');m.id='more';const n=Math.min(BATCH,all.length-shown);
+    m.textContent='Show '+n+' more · '+shown+' of '+all.length;m.onclick=()=>{shown+=BATCH;list()};ol.after(m)}}
+// make sure an article is in the rendered part of the list before jumping to it
+function reveal(a){if(!a.el){const all=A.filter(ok).reverse(),k=all.indexOf(a);if(k<0)return;shown=Math.ceil((k+1)/BATCH)*BATCH;list()}
+  if(a.el)a.el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'})}
+['q','src','min'].forEach(i=>$(i).addEventListener('input',filt));
+$('go').onclick=()=>$('lv').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{if(A.length&&!(innerWidth===W&&Math.abs(innerHeight-VH)<140))build()},300)});
+function sample(){const o=[];for(let i=0;i<141;i++){const s=[1.5,2,3,3.5,4,4.5,5][(i*5)%7];o.push({date:new Date(Date.now()-(141-i)*.3*864e5).toISOString().slice(0,10),
+  source:['FT','Wired','The New Yorker','NOEMA','The Economist','Futurism','DMI','The Atlantic'][i%8],author:'Author '+i,title:'Sample article number '+i+' about technology and power',url:'https://example.com',score:i%9?s:null,themes:'AI, Tech, People',takeaway:'A sample takeaway.'})}return o}
+if(DATA_URL)fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(init)
+  .catch(e=>{const m=$('msg');m.hidden=false;m.textContent='Could not load the log ('+e.message+'). Please refresh the page.'});
+else init(sample());   // no address set: show sample bubbles, useful for trying design changes
+requestAnimationFrame(draw);
+</script></body></html>
