@@ -170,7 +170,7 @@ footer p{margin:0;max-width:80ch}
 <header class="wrap">
   <p class="kicker"><i aria-hidden="true"></i><span id="kick">A reading log, updated as I read</span></p>
   <h1>Hi, I’m Finn. Here’s everything I’ve been reading.</h1>
-  <p class="lede" id="lede">Articles from the FT, The New Yorker, Wired, NOEMA and friends. Each one gets a score out of 5 and a few honest lines, written straight after reading. The big bubbles are the ones I loved.</p>
+  <p class="lede" id="lede">Articles from the FT, The New Yorker, Wired, NOEMA and others. Each one gets a score out of 5 and a few honest lines, written straight after reading. The big bubbles are the ones I loved.</p>
   <details class="about" id="about">
     <summary>About this log <span>· why I keep it and how it’s made</span></summary>
     <p>This is my reading log: every article I read from the FT, The New Yorker, The Economist, Wired, NOEMA and others, scored from 1 to 5 on interest, importance and style, with a short takeaway written straight after reading. I keep it to read more deliberately and to sharpen my own analysis and writing.</p>
@@ -282,7 +282,7 @@ function init(d){
   srcs.forEach(s=>{const o=el('option',null,s+' ('+A.filter(a=>a.source===s).length+')');o.value=s;ss.append(o)});ss.value=srcs.includes(keep)?keep:'';
   const first=A.length?A[A.length-1].t:Date.now(),avg=A.filter(a=>a.score!=null);
   $('lede').innerHTML='';const L=$('lede');
-  L.append(el('b',null,n+' articles'),' since '+new Date(first).toLocaleDateString('en-GB',{day:'numeric',month:'long'})+', from the FT, The New Yorker, Wired, NOEMA and friends. Each one gets a score out of 5 and a few honest lines, written straight after reading. The big bubbles are the ones I loved.');
+  L.append(el('b',null,n+' articles'),' since '+new Date(first).toLocaleDateString('en-GB',{day:'numeric',month:'long'})+', from the FT, The New Yorker, Wired, NOEMA and others. Each one gets a score out of 5 and a few honest lines, written straight after reading. The big bubbles are the ones I loved.');
   $('status').hidden=true;
   subjects();tops();list(true);panel();Play.fit();Play.setData(P);
 }
