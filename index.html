@@ -273,7 +273,8 @@ function showError(){const s=$('status');s.hidden=false;s.replaceChildren();
 // ── Data in ───────────────────────────────────────────────────────
 function weight(a){const s=a.score??2.5,age=(Date.now()-a.t)/864e5,tau=15*2**(s-1);return(((s-1)/4)**1.7)*(.45+.55*Math.exp(-age/tau))}
 function init(d){
-  A=d.filter(a=>a&&a.title).map(a=>({...a,t:a.date?Date.parse(a.date):Date.now(),c:undefined})).sort((x,y)=>y.t-x.t); // newest first
+  // newest first; on the same day, the later row in the Sheet counts as the more recent read
+  A=d.filter(a=>a&&a.title).map((a,i)=>({...a,t:a.date?Date.parse(a.date):Date.now(),row:i,c:undefined})).sort((x,y)=>(y.t-x.t)||(y.row-x.row));
   A.forEach(cat);
   const n=A.length;P=A.slice(0,PILE_NEW);
   if(n>PILE_NEW){const fav=A.slice(PILE_NEW).filter(a=>(a.score??0)>=PILE_FAV).sort((x,y)=>(y.score-x.score)||(y.t-x.t)).slice(0,PILE_MAX-PILE_NEW);P=P.concat(fav)}
