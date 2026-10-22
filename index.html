@@ -37,7 +37,7 @@ h1{font:600 clamp(26px,4.2vw,36px)/1.1 var(--serif);margin:0 0 6px;letter-spacin
 #tops{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
 .tc{background:#0d0d0d;border:1px solid #2a2a2a;border-top:3px solid var(--c);border-radius:8px;padding:10px 12px}
 .tc a,.tc span.t{display:block;font:600 16px/1.25 var(--serif);color:#eee;text-decoration:none}.tc a:hover{text-decoration:underline}
-.tc .m{font-size:12px;margin:4px 0}.tc p{margin:0;font-size:13px;color:#bbb;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tc .m{font-size:12px;margin:4px 0}.tc.x{cursor:pointer}.tc.x:hover{border-color:#444}.tc p.open{display:block;-webkit-line-clamp:unset}.tc .rm{background:none;border:0;padding:4px 0 0;color:#a9d4ff;font-size:13px;cursor:pointer;text-decoration:underline}.tc a::after{content:' \2197';font-size:.75em;color:#888}.tc p{margin:0;font-size:13px;color:#bbb;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .lk{background:none;border:0;border-radius:0;padding:0;color:#9cf;font:inherit;text-decoration:underline;cursor:pointer;white-space:nowrap}
 details{color:#ccc;max-width:760px;font-size:15px}summary{cursor:pointer}
 #bar{position:sticky;top:0;z-index:6;background:#000;padding:8px 16px 6px}
@@ -144,7 +144,12 @@ function tops(){const T=A.filter(a=>a.score!=null).sort((x,y)=>(y.score-x.score)
     const t=document.createElement(/^https?:/.test(a.url)?'a':'span');t.textContent=a.title;if(t.tagName==='A'){t.href=a.url;t.target='_blank';t.rel='noopener noreferrer'}else t.className='t';
     const m=document.createElement('div');m.className='m';m.textContent=[a.source,new Date(a.t).toLocaleDateString('en-GB',{day:'numeric',month:'short'}),a.score+'/5'].join(' · ');
     c.append(t,m);if(a.takeaway){const p=document.createElement('p');p.textContent=a.takeaway;c.append(p)}w.append(c)});
-  $('top').hidden=!T.length}
+  $('top').hidden=!T.length;
+  // the whole card opens to show the full takeaway; only the title goes to the article
+  w.querySelectorAll('.tc').forEach(c=>{const p=c.querySelector('p');if(!p||p.scrollHeight<=p.clientHeight+2)return;
+    const b=document.createElement('button');b.className='rm';b.textContent='Read more';c.append(b);c.classList.add('x');
+    const tog=()=>{const o=p.classList.toggle('open');b.textContent=o?'Show less':'Read more'};
+    c.addEventListener('click',e=>{if(e.target.closest('a'))return;tog()})})}
 // shared physics: gravity pile, no overlaps, newer bubbles float slightly upward
 function phys(L,x0,x1,fl){
   for(const b of L){const vx=(b.x-b.px)*.985,vy=(b.y-b.py)*.985;b.px=b.x;b.py=b.y;b.x+=vx;b.y+=vy+.45}
