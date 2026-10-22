@@ -1,279 +1,519 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Finlay Riddell’s reading log</title>
-<meta name="description" content="Every article I read from the FT, The New Yorker, The Economist, Wired, NOEMA and others, scored and summarised by hand.">
+<meta name="description" content="Everything I read from the FT, The New Yorker, The Economist, Wired, NOEMA and others, scored and summarised by hand.">
+<meta name="author" content="Finlay Riddell">
 <meta property="og:title" content="Finlay Riddell’s reading log">
 <meta property="og:description" content="Every article I read, scored and summarised by hand, shown as a pile of bubbles.">
 <meta property="og:type" content="website">
-<meta name="author" content="Finlay Riddell">
 <meta property="article:author" content="Finlay Riddell">
 <meta property="og:url" content="https://finnriddell.github.io/reading-log/">
 <meta property="og:image" content="https://finnriddell.github.io/reading-log/preview.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="A pile of coloured bubbles, one per article read, under the title Finlay Riddell’s reading log">
+<meta property="og:image:alt" content="Soft coloured bubbles, one per article read, under the title Finlay Riddell’s reading log">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://finnriddell.github.io/reading-log/">
+<meta name="theme-color" content="#f6f1e8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='11' cy='21' r='9' fill='%2385a8ef'/%3E%3Ccircle cx='23' cy='22' r='7' fill='%23a99bf0'/%3E%3Ccircle cx='17' cy='9' r='6' fill='%23f2a97e'/%3E%3C/svg%3E">
+<!-- the article feed lives on Google; warming up the connection early saves a round trip -->
+<link rel="preconnect" href="https://script.google.com"><link rel="preconnect" href="https://script.googleusercontent.com">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
 <!-- anonymous visit counts (GoatCounter: no cookies, no personal data) -->
 <script data-goatcounter="https://finnriddell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
-<meta name="theme-color" content="#000000">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='11' cy='21' r='9' fill='%2393b7d6'/%3E%3Ccircle cx='23' cy='22' r='7' fill='%23b49ad6'/%3E%3Ccircle cx='17' cy='9' r='6' fill='%23e5a98d'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:dark;--rw:300px}
+/* ── Design tokens ───────────────────────────────────────────────
+   Warm paper background, near-black ink, one family of soft subject
+   colours. Everything else is neutral so the subjects carry the colour. */
+:root{
+  --bg:#f6f1e8; --paper:#fffcf7; --ink:#1e1b17; --ink2:#4a453e; --muted:#7a736a;
+  --line:#e6ddcf; --line2:#d9cfbf; --focus:#1e1b17;
+  --serif:Newsreader,Georgia,'Times New Roman',serif;
+  --sans:Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --r-lg:22px; --r-md:14px; --r-sm:10px;
+  --shadow:0 1px 1px rgba(70,50,20,.04),0 6px 24px -8px rgba(70,50,20,.12);
+  --gut:clamp(16px,4vw,40px); --max:1180px;
+}
 *{box-sizing:border-box}
-body{margin:0;background:#000;color:#eee;font:16px/1.45 system-ui,sans-serif}
-:root{--serif:Newsreader,Georgia,'Times New Roman',serif}
-header{padding:18px 16px 2px}
-h1{font:600 clamp(26px,4.2vw,36px)/1.1 var(--serif);margin:0 0 6px;letter-spacing:-.01em}
-#sub{margin:0 0 8px;font:400 clamp(16px,2vw,19px)/1.35 var(--serif);color:#cfcac2}
-#how{margin:0 0 6px;font-size:13px;color:#999}
-#cats{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
-#cats button{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;font-size:13px;border-radius:14px;background:none;color:#ccc;border-color:#333}
-#cats button[aria-pressed=true]{border-color:#eee;color:#fff;background:#1a1a1a}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
-#top{margin:14px 0 6px}#top h2{font:600 24px var(--serif);margin:0 0 10px}
-#tops{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
-.tc{background:#0d0d0d;border:1px solid #2a2a2a;border-top:3px solid var(--c);border-radius:8px;padding:10px 12px}
-.tc a,.tc span.t{display:block;font:600 16px/1.25 var(--serif);color:#eee;text-decoration:none}.tc a:hover{text-decoration:underline}
-.tc .m{font-size:12px;margin:4px 0}.tc.x{cursor:pointer}.tc.x:hover{border-color:#444}.tc p.open{display:block;-webkit-line-clamp:unset}.tc .rm{background:none;border:0;padding:4px 0 0;color:#a9d4ff;font-size:13px;cursor:pointer;text-decoration:underline}.tc a::after{content:' \2197';font-size:.75em;color:#888}.tc p{margin:0;font-size:13px;color:#bbb;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.lk{background:none;border:0;border-radius:0;padding:0;color:#9cf;font:inherit;text-decoration:underline;cursor:pointer;white-space:nowrap}
-details{color:#ccc;max-width:760px;font-size:15px}summary{cursor:pointer}
-#bar{position:sticky;top:0;z-index:6;background:#000;padding:8px 16px 6px}
-.row{display:flex;flex-wrap:wrap;gap:8px}
-input,select,button{font:inherit;color:#eee;background:#111;border:1px solid #555;border-radius:6px;padding:8px 10px}
-input{flex:1 1 160px;min-width:0}
-select{flex:0 0 auto;-webkit-appearance:none;appearance:none;padding-right:30px;background:#111 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23ccc' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 12px center}
-:focus-visible{outline:2px solid #fff;outline-offset:2px}
-#key{display:flex;flex-wrap:wrap;gap:6px;padding:8px 0 2px}
-#key button{padding:3px 10px;font-size:14px;border-radius:14px;background:none;color:#ccc;border-color:#444}
-#key button[aria-pressed=true]{background:#eee;color:#000}
-#hero{display:block}
-canvas{position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;z-index:4}
-#lv{padding:8px 16px 90px;margin-left:clamp(0px,4vw,60px);max-width:min(760px,calc(100vw - var(--rw) - 70px))}
-@media(max-width:759px){#lv{max-width:none;margin-left:0}}
-ol{list-style:none;margin:0;padding:0}
-#lv,#lv li{scroll-margin-top:calc(var(--bh,140px) + 10px)}
-li .tk{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-li .tk.open{display:block;-webkit-line-clamp:unset}
-li .rm{background:none;border:0;padding:2px 0 0;color:#a9d4ff;font-size:14px;cursor:pointer;text-decoration:underline}
-#more{display:block;margin:22px auto 0;padding:9px 18px;border-radius:20px;border-color:#444}
-li{padding:12px 0 12px 12px;border-bottom:1px solid #222;border-left:3px solid transparent;transition:border-color .2s}
-li.iv{border-left-color:hsl(38 95% 58%)}
-li a{color:#a9d4ff;font:400 19px/1.3 var(--serif)}li span.t{font:400 19px/1.3 var(--serif)}
-li.mh{border:0;padding:22px 0 2px}li.mh h2{margin:0;font:600 24px var(--serif)}
-.m{color:#aaa;font-size:14px}
-#tip{position:fixed;z-index:9;max-width:260px;background:#111;border:1px solid #666;border-radius:6px;padding:6px 8px;font-size:14px;pointer-events:none}
-#card{position:fixed;z-index:8;left:8px;right:8px;bottom:8px;max-width:520px;background:#111;border:1px solid #666;border-radius:10px;padding:12px 14px;max-height:45vh;overflow:auto}
-#card h2{font:600 19px/1.25 var(--serif);margin:0 0 4px}#card a{color:#9cf}#card p{margin:6px 0 0}
-#card button{margin:8px 8px 0 0}
-#msg{padding:0 16px;color:#ffb4a8}
-</style></head><body>
-<header><h1 id="name"></h1>
-<p id="sub"></p>
-<p id="how">Bigger bubble = higher score · newest at the top · colour = subject · <span id="tapw">click</span> a bubble to open it · <button id="go" class="lk">Top reads and the full list ↓</button></p>
-<div id="cats" aria-label="Filter by subject"></div>
-<details id="about"><summary>About this log</summary>
-<p>This is my reading log: every article I read from the FT, The New Yorker, The Economist, Wired, NOEMA and others, scored from 1 to 5 on interest, importance and style, with a short takeaway written straight after reading. I keep it to read more deliberately and to sharpen my own analysis and writing.</p>
-<p>It is also a small pool of human judgement and learning. Building it has improved my knowledge of AI tools, but it has also strengthened my appreciation for human thinking. The readings come from some of the finest minds writing today. The writing is world class; the judgement is messy and human. Together, this may become valuable when information, data and judgement are swamped by artificially generated ideas, conclusions and writing.</p>
-<p>I designed and directed the site and coded it with Claude, an AI model. I am responsible for the rules, scoring, design, and terrible spelling. I also checked and tested every change. It runs for free on Google Sheets and Apps Script: a small capture page adds each article to the Sheet, and this page reads from it.</p>
-<p>Favourites stay large as the pile ages, so the best reads are easy to find. Some takeaways are private; you'll see the ones I've chosen to share.</p>
-<p id="wu" hidden><a id="wul" target="_blank" rel="noopener">Read how I built it →</a></p></details></header>
-<div id="bar"><div class="row">
-<input id="q" type="search" placeholder="Search title, author, theme" aria-label="Search">
-<select id="src" hidden aria-label="Source"><option value="">All sources</option></select>
-<select id="min" aria-label="Minimum score"><option value="0">Any score</option><option value="1.5">1.5+</option><option value="2">2+</option><option value="2.5">2.5+</option><option value="3">3+</option><option value="3.5">3.5+</option><option value="4">4+</option><option value="4.5">4.5+</option><option value="5">5 only</option></select>
-</div><div id="key" aria-label="Filter by source"></div></div>
-<p id="msg" role="status">Loading…</p>
-<section id="hero" aria-label="Pile of bubbles, one per article, newest at the top. The full list follows below."></section>
-<main id="lv"><section id="top" aria-labelledby="toph" hidden><h2 id="toph">Top reads</h2><div id="tops"></div></section><ol id="list"></ol>
-<footer class="m" style="padding:40px 0 0;font-size:13px;color:#888">© 2026 Finlay Riddell. All rights reserved. The reading notes, scores and takeaways are my own writing. The site’s code may be viewed but not reused without permission; get in touch if you’d like to use any of it. Visits are counted anonymously with GoatCounter: no cookies and no personal data.</footer></main>
-<canvas id="c" aria-hidden="true"></canvas>
-<div id="tip" hidden></div>
-<div id="card" role="region" aria-live="polite" aria-label="Article details" hidden></div>
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+button,input,select{font:inherit;color:inherit}
+
+/* ── Header: friendly, first person ─────────────────────────────── */
+header{padding:clamp(24px,4.5vw,52px) 0 clamp(16px,2.4vw,24px)}
+.kicker{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;font-size:13px;font-weight:500;color:var(--ink2);
+  background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 10px}
+.kicker i{width:7px;height:7px;border-radius:50%;background:#59b98a;box-shadow:0 0 0 3px rgba(89,185,138,.18)}
+h1{font:500 clamp(30px,3.8vw,44px)/1.08 var(--serif);letter-spacing:-.015em;margin:0 0 12px;max-width:24ch}
+.lede{font:400 clamp(17px,1.8vw,19px)/1.5 var(--serif);color:var(--ink2);margin:0;max-width:68ch}
+.lede b{font-weight:600;color:var(--ink)}
+
+/* ── Controls ───────────────────────────────────────────────────── */
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 14px;position:sticky;top:0;z-index:3;padding:10px 0;background:var(--bg)}
+.search{flex:1 1 240px;min-width:0;position:relative}
+.search input{width:100%;height:44px;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:0 16px 0 40px;outline:none;transition:border-color .2s,box-shadow .2s}
+.search input:focus{border-color:var(--line2);box-shadow:0 0 0 4px rgba(30,27,23,.06)}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.5}
+.select{position:relative}
+.select select{height:44px;appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:0 34px 0 16px;cursor:pointer}
+.select::after{content:"";position:absolute;right:15px;top:50%;width:7px;height:7px;border:solid var(--ink2);border-width:0 1.5px 1.5px 0;transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.subjects{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.chip{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 13px 0 11px;border-radius:999px;border:1px solid var(--line);background:var(--paper);
+  font-size:14px;color:var(--ink2);cursor:pointer;transition:background .2s,border-color .2s,color .2s,opacity .2s}
+.chip .dot{width:12px;height:12px;border-radius:50%;box-shadow:inset 0 -2px 3px rgba(0,0,0,.12)}
+.chip .n{color:var(--muted);font-variant-numeric:tabular-nums}
+.chip:hover{border-color:var(--line2)}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}.chip[aria-pressed=true] .n{color:#d9d2c6}
+.subjects.filtering .chip[aria-pressed=false]{opacity:.55}
+@media (max-width:600px){.subjects{flex-wrap:nowrap;overflow-x:auto;margin:0 calc(-1*var(--gut)) 14px;padding:0 var(--gut) 4px;scrollbar-width:none}.subjects::-webkit-scrollbar{display:none}.chip{flex:none}}
+
+/* ── Stage: the playground and its side panel ───────────────────── */
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
+@media (max-width:900px){.stage{grid-template-columns:1fr}}
+.play{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden;
+  height:clamp(420px,64vh,680px);touch-action:pan-y;user-select:none;-webkit-user-select:none}
+@media (max-width:900px){.play{height:clamp(400px,62svh,560px)}}
+.play canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.bar{position:absolute;left:14px;right:14px;top:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;pointer-events:none;z-index:2}
+.bar>*{pointer-events:auto}
+.hint{font-size:13px;color:var(--muted);background:rgba(255,252,247,.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:5px 11px;border-radius:999px;border:1px solid var(--line);transition:opacity .6s}
+.toggle{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:500;color:var(--ink2);background:rgba(255,252,247,.9);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  border:1px solid var(--line);border-radius:999px;padding:5px 6px 5px 12px;cursor:pointer}
+.toggle .sw{width:34px;height:20px;border-radius:999px;background:#d8cfc1;position:relative;transition:background .25s}
+.toggle .sw::after{content:"";position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
+.toggle[aria-checked=true] .sw{background:var(--ink)}.toggle[aria-checked=true] .sw::after{transform:translateX(14px)}
+.status{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:var(--muted);font-size:14px;text-align:center;padding:24px;z-index:1}
+.status .dots{display:flex;gap:6px}.status .dots i{width:8px;height:8px;border-radius:50%;background:#cbbfae;animation:pulse 1.2s ease-in-out infinite}
+.status .dots i:nth-child(2){animation-delay:.15s}.status .dots i:nth-child(3){animation-delay:.3s}
+@keyframes pulse{0%,80%,100%{opacity:.25;transform:scale(.8)}40%{opacity:1;transform:none}}
+.status button{border:1px solid var(--line2);background:var(--paper);border-radius:999px;padding:8px 16px;cursor:pointer}
+.tip{position:absolute;z-index:3;pointer-events:none;max-width:260px;background:var(--ink);color:#fff;font-size:13px;line-height:1.35;padding:7px 10px;border-radius:10px;
+  box-shadow:0 6px 20px rgba(0,0,0,.15);opacity:0;transform:translateY(4px);transition:opacity .15s,transform .15s}
+.tip.on{opacity:1;transform:none}.tip small{display:block;color:#cfc7ba;margin-top:2px}
+
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:20px 20px 18px;min-height:220px}
+@media (min-width:901px){.panel{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}}
+.panel .eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.panel .eyebrow .dot{width:10px;height:10px;border-radius:50%}
+.panel h2{font:500 22px/1.2 var(--serif);margin:0 0 8px;letter-spacing:-.005em}
+.panel h2 a{text-decoration:none;background-image:linear-gradient(currentColor,currentColor);background-size:100% 1px;background-repeat:no-repeat;background-position:0 100%}
+.panel h2 a:hover{background-size:100% 2px}
+.panel .meta{font-size:13px;color:var(--muted);margin:0 0 12px}
+.score{display:inline-flex;gap:3px;vertical-align:-1px;margin-right:6px}.score i{width:9px;height:9px;border-radius:50%;background:#e2d9cb}.score i.f{background:var(--ink)}.score i.h{background:linear-gradient(90deg,var(--ink) 50%,#e2d9cb 50%)}
+.panel p{margin:0 0 12px;font-size:15px;color:var(--ink2)}
+.panel .take{font:400 17px/1.5 var(--serif);color:var(--ink)}
+.panel .note{font-size:14px;color:var(--muted)}
+.panel .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.btn{border:1px solid var(--line2);background:var(--paper);border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer;transition:background .2s}
+.btn:hover{background:#f3ece1}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 14px}
+.stat{background:var(--bg);border-radius:var(--r-sm);padding:10px 12px}
+.stat b{display:block;font:500 24px/1.1 var(--serif)}.stat span{font-size:12px;color:var(--muted)}
+.empty-hint{font-size:14px;color:var(--muted);margin:0}
+
+/* ── Sections below ─────────────────────────────────────────────── */
+section.block{margin-top:clamp(40px,7vw,72px)}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 16px}
+.sh h2{font:500 clamp(24px,3vw,30px)/1.1 var(--serif);margin:0;letter-spacing:-.01em}
+.sh span{font-size:14px;color:var(--muted)}
+.tops{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.tc{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 16px 14px;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
+.tc::before{content:"";position:absolute;left:16px;top:0;width:28px;height:3px;border-radius:0 0 3px 3px;background:var(--c)}
+.tc.x{cursor:pointer}.tc.x:hover{transform:translateY(-2px);box-shadow:0 1px 1px rgba(70,50,20,.04),0 14px 30px -10px rgba(70,50,20,.18)}
+.tc h3{font:500 18px/1.25 var(--serif);margin:6px 0 6px}
+.tc h3 a{text-decoration:none}.tc h3 a:hover{text-decoration:underline}
+.tc .m{font-size:12.5px;color:var(--muted);margin:0 0 8px}
+.tc p{margin:0;font-size:14px;color:var(--ink2);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tc p.open{display:block}
+.more-link{background:none;border:0;padding:6px 0 0;font-size:13px;font-weight:500;color:var(--ink);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+.log{list-style:none;margin:0;padding:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden}
+.log .mh{padding:18px 20px 6px;font:600 12px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--paper)}
+.log .it{display:grid;grid-template-columns:14px minmax(0,1fr);gap:4px 12px;padding:14px 20px;border-top:1px solid var(--line);scroll-margin-top:70px;transition:background .4s}
+.log .mh+.it{border-top:0}
+.log .it .dot{width:10px;height:10px;border-radius:50%;margin-top:9px}
+.log .it h3{margin:0;font:500 18px/1.35 var(--serif)}
+.log .it h3 a{text-decoration:none}.log .it h3 a:hover{text-decoration:underline;text-underline-offset:3px}
+.log .it .m{grid-column:2;font-size:13px;color:var(--muted)}
+.log .it .tk{grid-column:2;margin:4px 0 0;font-size:15px;color:var(--ink2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.log .it .tk.open{display:block}
+.log .it .more-link{grid-column:2;justify-self:start}
+.log .it.flash{background:#fbf3e3}
+.log .it.new{animation:rise .5s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.loadmore{display:flex;justify-content:center;padding:18px}
+.loadmore button{border:1px solid var(--line2);background:var(--paper);border-radius:999px;padding:10px 18px;font-size:14px;cursor:pointer}
+.none{padding:28px 20px;color:var(--muted);text-align:center}
+
+details.about{margin-top:clamp(40px,7vw,72px);background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 20px}
+details.about summary{cursor:pointer;font:500 20px var(--serif);list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.about summary::-webkit-details-marker{display:none}
+details.about summary::after{content:"+";font:400 24px var(--sans);color:var(--muted);transition:transform .25s}
+details.about[open] summary::after{transform:rotate(45deg)}
+details.about p{color:var(--ink2);max-width:68ch;margin:12px 0 0}
+footer{padding:28px 0 calc(40px + env(safe-area-inset-bottom));font-size:13px;color:var(--muted)}
+footer p{margin:0;max-width:80ch}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <p class="kicker"><i aria-hidden="true"></i><span id="kick">A reading log, updated as I read</span></p>
+  <h1>Hi, I’m Finlay. Here’s everything I’ve been reading.</h1>
+  <p class="lede" id="lede">Articles from the FT, The New Yorker, Wired, NOEMA and friends. Each one gets a score out of 5 and a few honest lines, written straight after reading. The big bubbles are the ones I loved.</p>
+</header>
+
+<main class="wrap">
+  <div class="subjects" id="subjects" aria-label="Subjects (tap to filter)"></div>
+
+  <div class="stage">
+    <div class="play" id="play" aria-label="A playground of bubbles, one per article. Size shows my score. The full list is further down the page.">
+      <canvas id="cv" aria-hidden="true"></canvas>
+      <div class="bar">
+        <span class="hint" id="hint">Drag the bubbles around · tap one to read my notes</span>
+        <button class="toggle" id="grav" role="switch" aria-checked="true" type="button">Gravity <span class="sw" aria-hidden="true"></span></button>
+      </div>
+      <div class="status" id="status" role="status"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><span>Fetching the log…</span></div>
+      <div class="tip" id="tip"></div>
+    </div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+
+  <section class="block" id="topwrap" hidden>
+    <div class="sh"><h2>Top reads</h2><span>My highest scores</span></div>
+    <div class="tops" id="tops"></div>
+  </section>
+
+  <section class="block" id="logwrap">
+    <div class="sh"><h2>The whole log</h2><span id="logcount"></span></div>
+  <div class="controls">
+    <label class="search"><span class="sr" hidden>Search</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search titles, authors, themes…" autocomplete="off" aria-label="Search the log"></label>
+    <div class="select"><select id="src" aria-label="Source"><option value="">All sources</option></select></div>
+    <div class="select"><select id="min" aria-label="Minimum score"><option value="0">Any score</option><option value="3">3 and up</option><option value="4">4 and up</option><option value="4.5">4.5 and up</option><option value="5">Only 5s</option></select></div>
+  </div>
+    <ol class="log" id="log"></ol>
+    <div class="loadmore" id="loadmore" hidden><button type="button" id="morebtn">Show more</button></div>
+  </section>
+
+  <details class="about">
+    <summary>About this log</summary>
+    <p>This is my reading log: every article I read from the FT, The New Yorker, The Economist, Wired, NOEMA and others, scored from 1 to 5 on interest, importance and style, with a short takeaway written straight after reading. I keep it to read more deliberately and to sharpen my own analysis and writing.</p>
+    <p>It is also a small pool of human judgement and learning. Building it has improved my knowledge of AI tools, but it has also strengthened my appreciation for human thinking. The readings come from some of the finest minds writing today. The writing is world class; the judgement is messy and human. Together, this may become valuable when information, data and judgement are swamped by artificially generated ideas, conclusions and writing.</p>
+    <p>I designed and directed the site and coded it with Claude, an AI model. I am responsible for the rules, scoring, design, and terrible spelling. I also checked and tested every change. It runs for free on Google Sheets, Apps Script and GitHub Pages: a small capture page adds each article to the Sheet, and this page reads from it.</p>
+    <p>Some takeaways are private; you’ll see the ones I’ve chosen to share. How the pieces work and how the site has changed are all on <a href="https://github.com/finnriddell/reading-log">GitHub</a>.</p>
+  </details>
+</main>
+
+<footer class="wrap"><p>© 2026 Finlay Riddell. All rights reserved. The reading notes, scores and takeaways are my own writing. The site’s code may be viewed but not reused without permission; get in touch if you’d like to use any of it. Visits are counted anonymously with GoatCounter: no cookies and no personal data.</p></footer>
+
 <script>
-const $=id=>document.getElementById(id),cv=$('c'),cx=cv.getContext('2d'),GUT=54,GR=34;
-const AMB='hsl(38 95% 58%)';
-// ── edit these two lines ──
-const OWNER='Finlay Riddell';          // your name, as shown in the heading
-const WRITEUP_URL='';                // link to your write-up; leave '' to hide it
-// where the articles come from: your public Apps Script address with ?format=json on the end
+// ── Settings ──────────────────────────────────────────────────────
+const OWNER='Finlay Riddell';
+// where the articles come from: the public Apps Script feed (read-only)
 const DATA_URL='https://script.google.com/macros/s/AKfycbwFF4c2gPk65yuN4HMtmnq2yDI01s-68QLDzhnQJJNKyHeRioZqllzYpaU1wLt3sL8v/exec?format=json';
-const PILE_NEW=250,PILE_MAX=400,PILE_FAV=4.5;  // pile = newest 250, plus older articles scored 4.5+, up to 400 bubbles
-// subjects: an article takes the first subject whose words match its themes or title
+const CACHE_KEY='readinglog:v2';            // last good copy, so return visits draw instantly
+const PILE_NEW=250,PILE_MAX=400,PILE_FAV=4.5; // playground = newest 250 + older 4.5+ favourites, max 400
+const BATCH=40;                              // list rows added per batch
+
+// Subjects: an article takes the first subject whose words match its themes or title.
+// One soft hue per subject; the rest of the page stays neutral so these read clearly.
 const CATS=[
- {n:'Science & climate',h:75,s:32,re:/climate|beef|el ni|environment|space|exoplanet|science|biohazard|plague/},
- {n:'World & China',h:125,s:24,re:/china|chinese|beijing|alibaba|\bus vs|\beu\b|europe|russia|ukrain|putin|iran|pakistan|\bdrc\b|congo|syria|foreign|\bwar\b|world (war|power|policy)|geopolit|middle.power|\blaos?\b|france|french|latin|diplomacy|sovereign|nuclear/},
- {n:'Economy & markets',h:215,s:30,re:/econom|financ|funding|stock|market|debt|bond|\btax|capitalis|\bjobs?\b|recruit|unemploy|labou?r|trade|investment|\bboom/},
- {n:'Politics & power',h:345,s:32,re:/politic|democra|trump|hegseth|\bice\b|whitehall|government|\blaws?\b|legal|punishment|musk|media|press|election|mid.?term|military|defence/},
- {n:'AI & tech',h:265,s:30,re:/\bai\b|a\.i\.|tech|agent|chip|semi.?cond|data.?cent|cyber|surveil|anthropic|openai|muse|\bmeta\b|machine|digital|software|internet|deepfake|agi|asi|claude/},
- {n:'Culture & ideas',h:18,s:34,re:/./}];
-const cat=a=>a.c??(a.c=CATS.findIndex(c=>c.re.test((a.themes+' '+a.title).toLowerCase())));
-const col=(a,L)=>{const c=CATS[cat(a)];return`hsl(${c.h} ${c.s}% ${L}%)`};
+ {n:'Science & climate',h:88,s:42,l:62,re:/climate|beef|el ni|environment|space|exoplanet|science|biohazard|plague/},
+ {n:'World & China',h:166,s:42,l:56,re:/china|chinese|beijing|alibaba|\bus vs|\beu\b|europe|russia|ukrain|putin|iran|pakistan|\bdrc\b|congo|syria|foreign|\bwar\b|world (war|power|policy)|geopolit|middle.power|\blaos?\b|france|french|latin|diplomacy|sovereign|nuclear/},
+ {n:'Economy & markets',h:214,s:72,l:66,re:/econom|financ|funding|stock|market|debt|bond|\btax|capitalis|\bjobs?\b|recruit|unemploy|labou?r|trade|investment|\bboom/},
+ {n:'Politics & power',h:348,s:72,l:70,re:/politic|democra|trump|hegseth|\bice\b|whitehall|government|\blaws?\b|legal|punishment|musk|media|press|election|mid.?term|military|defence/},
+ {n:'AI & tech',h:254,s:68,l:72,re:/\bai\b|a\.i\.|tech|agent|chip|semi.?cond|data.?cent|cyber|surveil|anthropic|openai|muse|\bmeta\b|machine|digital|software|internet|deepfake|agi|asi|claude/},
+ {n:'Culture & ideas',h:24,s:84,l:70,re:/./}];
+const hsl=(c,dl=0,a=1)=>`hsla(${c.h} ${c.s}% ${c.l+dl}% / ${a})`;
+
+// ── Helpers ───────────────────────────────────────────────────────
+const $=id=>document.getElementById(id);
+const el=(t,cls,txt)=>{const e=document.createElement(t);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e};
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let P=[],settled=0,A=[],B=[],G=[],W=0,VH=0,h0=0,top0=0,t0=0,mob=false,railX=0,railY=0,F={q:'',s:'',m:0,c:-1},more=false,selA=null,BIAS=.05,cardY=0;
-const fmt=d=>d?new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'';
-const mon=t=>new Date(t).toLocaleDateString('en-GB',{month:'long',year:'numeric'});
-// size follows score strongly; age shrinks a bubble, low scores much faster than high ones
-function weight(a){const s=a.score??2.5,age=(Date.now()-a.t)/864e5,tau=15*2**(s-1);return(((s-1)/4)**1.7)*(.45+.55*Math.exp(-age/tau))}
-const ok=a=>(!F.s||a.source===F.s)&&(F.c<0||cat(a)===F.c)&&(a.score??0)>=F.m&&(!F.q||[a.title,a.author,a.themes,a.takeaway,a.source].join(' ').toLowerCase().includes(F.q));
-const act=()=>!!(F.q||F.s||F.m||F.c>=0);
-const BATCH=50;let shown=BATCH;
-function filt(){shown=BATCH;F={q:$('q').value.toLowerCase(),s:$('src').value,m:+$('min').value,c:F.c};list();key();cats()}
-function init(d){
-  A=d.map(a=>({...a,t:a.date?Date.parse(a.date):Date.now()})).sort((x,y)=>x.t-y.t);
-  [...new Set(A.map(a=>a.source))].sort().forEach(s=>{const o=document.createElement('option');o.textContent=o.value=s;$('src').append(o)});
-  $('msg').hidden=true;pile();head();tops();filt();build();
-}
-function pile(){const n=A.length;if(n<=PILE_NEW){P=A;return}
-  const fav=A.slice(0,n-PILE_NEW).filter(a=>(a.score??0)>=PILE_FAV).sort((x,y)=>(y.score-x.score)||(y.t-x.t)).slice(0,PILE_MAX-PILE_NEW);
-  const keep=new Set(fav);P=A.filter((a,i)=>i>=n-PILE_NEW||keep.has(a))}
-function head(){
-  $('name').textContent=OWNER?OWNER+'’s reading log':'Reading log';
-  const first=A.length?new Date(A[0].t).toLocaleDateString('en-GB',{day:'numeric',month:'long'}):'';
-  $('sub').textContent=A.length+' articles since '+first+', each read, scored and summarised by hand.';
-  if(P.length<A.length)$('sub').textContent+=' The pile shows the newest '+PILE_NEW+' and older favourites; all '+A.length+' are in the list below.';
-  $('tapw').textContent=matchMedia('(pointer:coarse)').matches?'tap':'click';
-  if(WRITEUP_URL){$('wul').href=WRITEUP_URL;$('wu').hidden=false}}
-function cats(){const k=$('cats');k.replaceChildren();const n=CATS.map(()=>0);A.forEach(a=>n[cat(a)]++);
-  CATS.forEach((c,i)=>{if(!n[i])return;const b=document.createElement('button'),d=document.createElement('span');d.className='dot';d.style.background=`hsl(${c.h} ${c.s+10}% 66%)`;
-    b.append(d,c.n+' '+n[i]);b.setAttribute('aria-pressed',F.c===i);b.onclick=()=>{F.c=F.c===i?-1:i;filt()};k.append(b)})}
-function tops(){const T=A.filter(a=>a.score!=null).sort((x,y)=>(y.score-x.score)||(!!y.takeaway-!!x.takeaway)||(y.t-x.t)).slice(0,5),w=$('tops');w.replaceChildren();
-  T.forEach(a=>{const c=document.createElement('article');c.className='tc';c.style.setProperty('--c',col(a,64));
-    const t=document.createElement(/^https?:/.test(a.url)?'a':'span');t.textContent=a.title;if(t.tagName==='A'){t.href=a.url;t.target='_blank';t.rel='noopener noreferrer'}else t.className='t';
-    const m=document.createElement('div');m.className='m';m.textContent=[a.source,new Date(a.t).toLocaleDateString('en-GB',{day:'numeric',month:'short'}),a.score+'/5'].join(' · ');
-    c.append(t,m);if(a.takeaway){const p=document.createElement('p');p.textContent=a.takeaway;c.append(p)}w.append(c)});
-  $('top').hidden=!T.length;
-  // the whole card opens to show the full takeaway; only the title goes to the article
-  w.querySelectorAll('.tc').forEach(c=>{const p=c.querySelector('p');if(!p||p.scrollHeight<=p.clientHeight+2)return;
-    const b=document.createElement('button');b.className='rm';b.textContent='Read more';c.append(b);c.classList.add('x');
-    const tog=()=>{const o=p.classList.toggle('open');b.textContent=o?'Show less':'Read more'};
-    c.addEventListener('click',e=>{if(e.target.closest('a'))return;tog()})})}
-// shared physics: gravity pile, no overlaps, newer bubbles float slightly upward
-function phys(L,x0,x1,fl){
-  for(const b of L){const vx=(b.x-b.px)*.985,vy=(b.y-b.py)*.985;b.px=b.x;b.py=b.y;b.x+=vx;b.y+=vy+.45}
-  let mr=1;for(const b of L)if(b.r>mr)mr=b.r;const cs=2*mr;
-  for(let it=0;it<4;it++){
-    // only compare bubbles in neighbouring grid cells, so the cost grows with the count, not its square
-    const g=new Map();for(let i=0;i<L.length;i++){const b=L[i],c=Math.floor(b.x/cs)*1e5+Math.floor(b.y/cs);let a=g.get(c);if(!a)g.set(c,a=[]);a.push(i)}
-    for(let i=0;i<L.length;i++){const p=L[i],gx=Math.floor(p.x/cs),gy=Math.floor(p.y/cs);
-      for(let ox=-1;ox<=1;ox++)for(let oy=-1;oy<=1;oy++){const a=g.get((gx+ox)*1e5+gy+oy);if(!a)continue;
-        for(const j of a){if(j<=i)continue;
-      const q=L[j],dx=q.x-p.x,dy=q.y-p.y,m=p.r+q.r;if(Math.abs(dx)>m||Math.abs(dy)>m)continue;
-      const d=Math.hypot(dx,dy)||.01;if(d<m){const f=(m-d)/2/d;p.x-=dx*f;p.y-=dy*f;q.x+=dx*f;q.y+=dy*f;const bs=BIAS*(q.f-p.f);p.y+=bs;q.y-=bs}}}}
-    for(const b of L){b.x=Math.min(x1-b.r,Math.max(x0+b.r,b.x));if(b.y>fl-b.r)b.y=fl-b.r}}
-}
-function hstep(){if(settled>90)return;const now=performance.now(),L=[];for(const b of B){if(!b.on&&now-t0>=b.at)b.on=true;if(b.on)L.push(b)}phys(L,GUT,W,h0);
-  // once every bubble has landed and nothing is moving, stop doing the maths
-  if(L.length===B.length){let mv=0;for(const b of L)mv+=Math.abs(b.x-b.px)+Math.abs(b.y-b.py);settled=mv/L.length<.03?settled+1:0}}
-function build(){
-  const dpr=devicePixelRatio||1;W=innerWidth;VH=innerHeight;mob=W<760;
-  cv.width=W*dpr;cv.height=VH*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
-  document.documentElement.style.setProperty('--bh',$('bar').offsetHeight+'px');
-  const hero=$('hero');top0=hero.getBoundingClientRect().top+scrollY;h0=Math.max(420,VH-top0-16);hero.style.height=h0+'px';
-  const n=P.length,r0=P.map(a=>7+55*weight(a)),area=r0.reduce((s,r)=>s+Math.PI*r*r,0);
-  const k=Math.min(1.8,Math.sqrt(.5*(W-GUT)*h0/Math.max(area,1))),gap=Math.min(40,3500/Math.max(n,1));t0=performance.now();
-  const gm={};G=[];
-  settled=0;B=P.map((a,i)=>{const r=Math.max(8,r0[i]*k),f=n>1?i/(n-1):1,x=GUT+r+Math.random()*(W-GUT-2*r);
-    const b={a,r,x,y:-r,px:x,py:-r,f,at:reduce?0:i*gap,on:false,iv:false};
-    const d=new Date(a.t),key=d.getFullYear()*12+d.getMonth();
-    if(!gm[key]){gm[key]={l:d.toLocaleDateString('en-GB',{month:'short'})+(d.getFullYear()!==new Date().getFullYear()?" '"+String(d.getFullYear()).slice(2):''),b:[]};G.push(gm[key])}
-    gm[key].b.push(b);return b});
-  if(!mob)rail(r0,area);else document.documentElement.style.setProperty('--rw','0px');
-  if(reduce){B.forEach((b,i)=>{b.on=true;b.y=b.py=h0*.3-i*3});for(let i=0;i<900;i++)hstep()}
+const coarse=matchMedia('(pointer: coarse)').matches;
+const fmt=t=>new Date(t).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+const fmtShort=t=>new Date(t).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+const isUrl=u=>/^https?:\/\//.test(u||'');
+const cat=a=>a.c??(a.c=CATS.findIndex(c=>c.re.test(((a.themes||'')+' '+a.title).toLowerCase())));
+
+let A=[],P=[],F={q:'',s:'',m:0,c:-1},sel=null;
+
+// ── Loading: cached copy first, fresh copy in the background ─────
+function readCache(){try{const v=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');return Array.isArray(v)&&v.length?v:null}catch(e){return null}}
+function writeCache(d){try{localStorage.setItem(CACHE_KEY,JSON.stringify(d))}catch(e){}}
+function fetchJSON(url,ms){const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);
+  return fetch(url,{signal:c.signal,cache:'no-store'}).then(r=>{clearTimeout(t);if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+    .then(d=>{if(!Array.isArray(d))throw new Error('unexpected data');return d})}
+async function load(){
+  const cached=readCache();let shown=false;
+  if(cached){init(cached);shown=true}
+  for(let i=0;i<3;i++){                       // the Google feed is occasionally slow or fails once: retry gently
+    try{const d=await fetchJSON(DATA_URL,i?15000:10000);writeCache(d);
+      if(!shown||JSON.stringify(d)!==JSON.stringify(cached))init(d);return}
+    catch(e){if(i<2)await new Promise(r=>setTimeout(r,1200*(i+1)))}
   }
-// the same bubbles settled again in a tall narrow pile: this is where the big pile docks
-function rail(r0,area){
-  const RW=Math.max(200,Math.min(340,W*.24)),RH=VH-($('bar').offsetHeight+14)-14,n=B.length;
-  railX=W-RW-16;railY=$('bar').offsetHeight+14;document.documentElement.style.setProperty('--rw',(RW+16)+'px');
-  const kr=Math.min(1,Math.sqrt(.55*(RW-GR)*RH/Math.max(area,1)));
-  const S=B.map((b,i)=>{const r=Math.max(3,r0[i]*kr),x=GR+r+Math.random()*(RW-GR-2*r);return{x,y:-r,px:x,py:-r,r,f:b.f}});
-  for(let t=0;t<n*3+450;t++){const L=[];for(let i=0;i<n;i++)if(t>=i*3)L.push(S[i]);phys(L,GR,RW,RH)}
-  B.forEach((b,i)=>b.s=S[i]);
+  if(!shown)showError();
 }
-const prog=()=>mob?0:Math.min(1,scrollY/(.75*h0)),ease=()=>{const p=prog();return p*p*(3-2*p)};
-function pos(b,e){const hy=top0+b.y-(mob?scrollY:0);if(mob||!b.s)return[b.x,hy,b.r];
-  return[b.x+(railX+b.s.x-b.x)*e,hy+(railY+b.s.y-hy)*e,b.r+(b.s.r-b.r)*e]}
-function view(){const top=($('bar').offsetHeight)+16,bot=VH*.62;
-  for(const b of B){const el=b.a.el;let v=false;if(el&&scrollY>0){const r=el.getBoundingClientRect();v=r.bottom>top&&r.top<bot}
-    if(v!==b.iv){b.iv=v;if(el)el.classList.toggle('iv',v)}}}
-function draw(){
-  const e=ease();if(mob||prog()<1)hstep();
-  cx.clearRect(0,0,W,VH);const hl=act();const cb=Math.max(0,$('bar').getBoundingClientRect().bottom);cx.save();cx.beginPath();cx.rect(0,cb,W,VH-cb);cx.clip();
-  for(const b of B){if(!b.on)continue;const[x,y,r]=pos(b,e);if(y+r<0||y-r>VH)continue;const m=ok(b.a);cx.globalAlpha=m?1:.12;
-    cx.beginPath();cx.arc(x,y,r,0,7);cx.fillStyle=(b.iv||b.a===selA)?AMB:col(b.a,46+28*b.f);cx.fill();
-    if(r>=34&&e<.15){cx.fillStyle='#000';const fs=Math.max(10,r/4.2);cx.font='600 '+fs+'px Newsreader,Georgia,serif';cx.textAlign='center';
-      const w=b.a.title.split(' '),n=Math.floor(2*r*.8/(fs*.55)),ls=[];let l='';
-      for(const t of w){if((l+' '+t).trim().length>n){ls.push(l);l=t}else l=(l+' '+t).trim()}ls.push(l);
-      const sh=ls.slice(0,3);if(ls.length>3)sh[2]=sh[2].slice(0,n-1)+'…';
-      sh.forEach((s,i)=>cx.fillText(s,x,y+(i-(sh.length-1)/2)*fs*1.15+fs*.3))}}
-  cx.globalAlpha=1;cx.fillStyle='#888';cx.font='13px system-ui';cx.textAlign='left';
-  let ly=-99;const lx=mob?8:8+(railX+2-8)*e;
-  for(let gi=G.length-1;gi>=0;gi--){const g=G[gi];let sh=0,sr=0,c=0;for(const b of g.b)if(b.on){sh+=b.y;sr+=b.s?b.s.y:b.y;c++}
-    if(g.b.length<6||c<6)continue;const hy=top0+sh/c-(mob?scrollY:0),ry=railY+sr/c,y=mob?hy:hy+(ry-hy)*e;
-    if(y-ly>20&&y>20){cx.fillText(g.l,lx,y+4);ly=y}}
-  cx.restore();$('lv').style.opacity=mob?1:Math.max(0,Math.min(1,(prog()-.5)*2.5));
-  view();requestAnimationFrame(draw);
+function showError(){const s=$('status');s.hidden=false;s.replaceChildren();
+  s.append(el('span',null,'The log is taking a nap. Google’s feed didn’t answer.'));
+  const b=el('button',null,'Try again');b.onclick=()=>{s.replaceChildren(el('span',null,'Trying again…'));load()};s.append(b)}
+
+// ── Data in ───────────────────────────────────────────────────────
+function weight(a){const s=a.score??2.5,age=(Date.now()-a.t)/864e5,tau=15*2**(s-1);return(((s-1)/4)**1.7)*(.45+.55*Math.exp(-age/tau))}
+function init(d){
+  A=d.filter(a=>a&&a.title).map(a=>({...a,t:a.date?Date.parse(a.date):Date.now(),c:undefined})).sort((x,y)=>y.t-x.t); // newest first
+  A.forEach(cat);
+  const n=A.length;P=A.slice(0,PILE_NEW);
+  if(n>PILE_NEW){const fav=A.slice(PILE_NEW).filter(a=>(a.score??0)>=PILE_FAV).sort((x,y)=>(y.score-x.score)||(y.t-x.t)).slice(0,PILE_MAX-PILE_NEW);P=P.concat(fav)}
+  const srcs=[...new Set(A.map(a=>a.source).filter(Boolean))].sort(),ss=$('src'),keep=ss.value;ss.length=1;
+  srcs.forEach(s=>{const o=el('option',null,s+' ('+A.filter(a=>a.source===s).length+')');o.value=s;ss.append(o)});ss.value=srcs.includes(keep)?keep:'';
+  const first=A.length?A[A.length-1].t:Date.now(),avg=A.filter(a=>a.score!=null);
+  $('lede').innerHTML='';const L=$('lede');
+  L.append(el('b',null,n+' articles'),' since '+new Date(first).toLocaleDateString('en-GB',{day:'numeric',month:'long'})+', from the FT, The New Yorker, Wired, NOEMA and friends. Each one gets a score out of 5 and a few honest lines, written straight after reading. The big bubbles are the ones I loved.');
+  $('status').hidden=true;
+  subjects();tops();list(true);panel();Play.fit();Play.setData(P);
 }
-function card(a,pt){
-  const c=$('card');c.replaceChildren();c.hidden=false;
-  const go=()=>reveal(a);
-  const x=document.createElement('button');x.textContent='Close';x.onclick=()=>{c.hidden=true;selA=null};
-  const h=document.createElement('h2');
-  if(/^https?:\/\//.test(a.url)){const l=document.createElement('a');l.href=a.url;l.target='_blank';l.rel='noopener noreferrer';l.textContent=a.title;h.append(l)}else h.textContent=a.title;
-  const add=(t,cls)=>{if(!t)return;const p=document.createElement('p');p.textContent=t;if(cls)p.className=cls;c.append(p)};
-  c.append(h);
-  add([a.source,a.author,a.pub?'published '+fmt(a.pub):'',a.date?'read '+fmt(a.date):''].filter(Boolean).join(' · '),'m');
-  add(a.score!=null?'Score '+a.score+' / 5':'Not scored yet','m');add(CATS[cat(a)].n+(a.themes?' · '+a.themes:''),'m');add(a.takeaway);add(a.liked,'m');
-  if(ok(a)){const g=document.createElement('button');g.textContent='Find in list ↓';g.onclick=go;c.append(g)}c.append(x);
-  const w=Math.min(520,W-16),s=c.style;s.left=s.right=s.top=s.bottom='auto';cardY=scrollY;
-  if(pt&&pt[0]-pt[2]>w+16){s.left='8px';s.bottom='8px'}
-  else if(pt&&W-(pt[0]+pt[2])>w+16){s.right='8px';s.bottom='8px'}
-  else{s.left='8px';s.right=W<700?'8px':'auto';if(pt&&pt[1]>VH*.5)s.top=($('bar').getBoundingClientRect().bottom+8)+'px';else s.bottom='8px'}
-}
-function hit(ev){const e=ease(),tol=ev.pointerType==='touch'?18:8;let best=null,bd=1e9;
-  for(const b of B){if(!b.on||!ok(b.a))continue;const[x,y,r]=pos(b,e),d=Math.hypot(x-ev.clientX,y-ev.clientY)-r;if(d<bd){bd=d;best=b}}return bd<tol?best:null}
-const SKIP='a,button,input,select,summary,#card,#bar,header,#lv li';
-addEventListener('click',ev=>{if(ev.target.closest(SKIP))return;const b=hit(ev);if(!b)return;
-  if(ease()>.6){reveal(b.a)}else{selA=b.a;card(b.a,pos(b,ease()))}});
-addEventListener('pointermove',ev=>{if(ev.pointerType==='touch')return;const t=$('tip');
-  const b=ev.target.closest&&ev.target.closest(SKIP)?null:hit(ev);
-  if(!b){t.hidden=true;document.body.style.cursor='';return}document.body.style.cursor='pointer';t.hidden=false;
-  t.textContent=b.a.title+' · '+b.a.source+(b.a.score!=null?' · '+b.a.score+'/5':'');
-  t.style.left=Math.max(8,Math.min(ev.clientX+14,innerWidth-270))+'px';t.style.top=(ev.clientY>innerHeight-110?ev.clientY-80:ev.clientY+14)+'px'});
-addEventListener('scroll',()=>{$('tip').hidden=true;const c=$('card');if(!c.hidden&&Math.abs(scrollY-cardY)>40){c.hidden=true;selA=null}},{passive:true});
-function key(){const k=$('key');k.replaceChildren();const n={};A.forEach(a=>n[a.source]=(n[a.source]||0)+1);
-  const all=Object.keys(n).sort((x,y)=>n[y]-n[x]),show=more?all:all.slice(0,6);if(F.s&&!show.includes(F.s))show.push(F.s);
-  show.forEach(s=>{const b=document.createElement('button');b.textContent=s+' '+n[s];b.setAttribute('aria-pressed',F.s===s);
-    b.onclick=()=>{$('src').value=F.s===s?'':s;filt()};k.append(b)});
-  if(all.length>6){const m=document.createElement('button');m.textContent=more?'Fewer':'More ('+(all.length-6)+')';m.onclick=()=>{more=!more;key()};k.append(m)}document.documentElement.style.setProperty('--bh',$('bar').offsetHeight+'px')}
-function list(){const ol=$('list');ol.replaceChildren();A.forEach(a=>a.el=null);let last='';
-  const mk=a=>{const d=new Date(a.t);return d.getFullYear()+'-'+d.getMonth()};
-  const all=A.map((a,i)=>[a,i]).filter(([a])=>ok(a)).reverse();
-  all.slice(0,shown).forEach(([a,i])=>{
-    if(mk(a)!==last){last=mk(a);const h=document.createElement('li'),t=document.createElement('h2');h.className='mh';t.textContent=mon(a.t);h.append(t);ol.append(h)}
-    const li=document.createElement('li'),t=document.createElement(/^https?:/.test(a.url)?'a':'span');li.id='a'+i;a.el=li;
-    t.textContent=a.title;if(t.tagName==='A'){t.href=a.url;t.target='_blank';t.rel='noopener noreferrer'}
-    if(t.tagName==='SPAN')t.className='t';const d=document.createElement('div');d.className='m';const dt=document.createElement('span');dt.className='dot';dt.style.cssText='margin-right:7px;background:'+col(a,62);
-    d.textContent=[a.source,a.author,fmt(a.date),a.score!=null?'Score '+a.score:'',a.themes].filter(Boolean).join(' · ');d.prepend(dt);
-    li.append(t,d);if(a.takeaway){const x=document.createElement('div');x.className='tk';x.textContent=a.takeaway;li.append(x)}ol.append(li)});
-  // takeaways show two lines; "Read more" appears only where there is more to read
-  ol.querySelectorAll('.tk').forEach(x=>{if(x.scrollHeight>x.clientHeight+2){const b=document.createElement('button');b.className='rm';b.textContent='Read more';
-    b.onclick=()=>{const o=x.classList.toggle('open');b.textContent=o?'Show less':'Read more'};x.after(b)}});
-  const old=$('more');if(old)old.remove();
-  if(all.length>shown){const m=document.createElement('button');m.id='more';const n=Math.min(BATCH,all.length-shown);
-    m.textContent='Show '+n+' more · '+shown+' of '+all.length;m.onclick=()=>{shown+=BATCH;list()};ol.after(m)}}
-// make sure an article is in the rendered part of the list before jumping to it
-function reveal(a){if(!a.el){const all=A.filter(ok).reverse(),k=all.indexOf(a);if(k<0)return;shown=Math.ceil((k+1)/BATCH)*BATCH;list()}
-  if(a.el)a.el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'})}
-['q','src','min'].forEach(i=>$(i).addEventListener('input',filt));
-$('go').onclick=()=>$('lv').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
-let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{if(A.length&&!(innerWidth===W&&Math.abs(innerHeight-VH)<140))build()},300)});
-function sample(){const o=[];for(let i=0;i<141;i++){const s=[1.5,2,3,3.5,4,4.5,5][(i*5)%7];o.push({date:new Date(Date.now()-(141-i)*.3*864e5).toISOString().slice(0,10),
-  source:['FT','Wired','The New Yorker','NOEMA','The Economist','Futurism','DMI','The Atlantic'][i%8],author:'Author '+i,title:'Sample article number '+i+' about technology and power',url:'https://example.com',score:i%9?s:null,themes:'AI, Tech, People',takeaway:'A sample takeaway.'})}return o}
-if(DATA_URL)fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(init)
-  .catch(e=>{const m=$('msg');m.hidden=false;m.textContent='Could not load the log ('+e.message+'). Please refresh the page.'});
-else init(sample());   // no address set: show sample bubbles, useful for trying design changes
-requestAnimationFrame(draw);
-</script></body></html>
+const ok=a=>(!F.s||a.source===F.s)&&(a.score??0)>=F.m&&(F.c<0||a.c===F.c)&&(!F.q||[a.title,a.author,a.themes,a.takeaway,a.source].join(' ').toLowerCase().includes(F.q));
+const filtering=()=>!!(F.q||F.s||F.m||F.c>=0);
+function apply(){list(true);subjects();Play.refilter();if(sel&&!ok(sel)){sel=null;panel()}}
+
+// ── Subject chips: the colour key and a filter in one ────────────
+function subjects(){const k=$('subjects');k.replaceChildren();k.classList.toggle('filtering',F.c>=0);
+  const cnt=CATS.map(()=>0);A.forEach(a=>cnt[a.c]++);
+  CATS.map((c,i)=>[c,i]).filter(([,i])=>cnt[i]).sort((x,y)=>cnt[y[1]]-cnt[x[1]]).forEach(([c,i])=>{
+    const b=el('button','chip');b.type='button';b.setAttribute('aria-pressed',F.c===i);
+    const d=el('span','dot');d.style.background=`radial-gradient(circle at 35% 30%, ${hsl(c,14)}, ${hsl(c)})`;
+    b.append(d,c.n,el('span','n',cnt[i]));b.onclick=()=>{F.c=F.c===i?-1:i;apply()};k.append(b)})}
+
+// ── Side panel: details live beside the playground, never on top of it ──
+function scoreDots(s){const w=el('span','score');w.setAttribute('aria-label','Score '+s+' out of 5');
+  for(let i=1;i<=5;i++){w.append(el('i',s>=i?'f':s>=i-.5?'h':''))}return w}
+function panel(){const p=$('panel');p.replaceChildren();
+  if(!sel){
+    const e=el('p','eyebrow','At a glance');p.append(e);
+    const sc=A.filter(a=>a.score!=null),avg=sc.length?(sc.reduce((s,a)=>s+a.score,0)/sc.length):0;
+    const cnt=CATS.map(()=>0);A.forEach(a=>cnt[a.c]++);const top=cnt.indexOf(Math.max(...cnt));
+    const g=el('div','stats');
+    [[A.length,'articles'],[new Set(A.map(a=>a.source)).size,'sources'],[avg.toFixed(1),'average score'],[A.filter(a=>a.score===5).length,'perfect 5s']].forEach(([v,l])=>{const s=el('div','stat');s.append(el('b',null,v),el('span',null,l));g.append(s)});
+    p.append(g);
+    if(A.length)p.append(el('p','empty-hint','Most of what I read is about '+CATS[top].n+'. '+(coarse?'Tap':'Click')+' any bubble to see what I thought of it.'));
+    return}
+  const a=sel,c=CATS[a.c];
+  const e=el('p','eyebrow');const d=el('span','dot');d.style.background=hsl(c);e.append(d,c.n);p.append(e);
+  const h=el('h2');if(isUrl(a.url)){const l=el('a',null,a.title);l.href=a.url;l.target='_blank';l.rel='noopener noreferrer';h.append(l,' ↗')}else h.textContent=a.title;p.append(h);
+  const m=el('p','meta');if(a.score!=null){m.append(scoreDots(a.score),a.score+'/5 · ')}
+  m.append([a.source,a.author,fmt(a.t)].filter(Boolean).join(' · '));p.append(m);
+  if(a.takeaway)p.append(el('p','take',a.takeaway));
+  else p.append(el('p','note','My takeaway on this one is private.'));
+  if(a.liked)p.append(el('p','note','What I thought of the writing: '+a.liked));
+  if(a.themes)p.append(el('p','note','Themes: '+a.themes));
+  const act=el('div','actions');
+  const f=el('button','btn','Find it in the log ↓');f.type='button';f.onclick=()=>reveal(a);act.append(f);
+  const x=el('button','btn','Close');x.type='button';x.onclick=()=>{sel=null;Play.select(null);panel()};act.append(x);p.append(act)}
+function choose(a){sel=a;panel();if(window.innerWidth<=900){const p=$('panel'),r=p.getBoundingClientRect();if(r.top>innerHeight-120)p.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'})}}
+
+// ── Top reads ─────────────────────────────────────────────────────
+function tops(){const T=A.filter(a=>a.score!=null).sort((x,y)=>(y.score-x.score)||(!!y.takeaway-!!x.takeaway)||(y.t-x.t)).slice(0,6),w=$('tops');w.replaceChildren();
+  T.forEach(a=>{const c=el('article','tc');c.style.setProperty('--c',hsl(CATS[a.c]));
+    const h=el('h3');if(isUrl(a.url)){const l=el('a',null,a.title+' ↗');l.href=a.url;l.target='_blank';l.rel='noopener noreferrer';h.append(l)}else h.textContent=a.title;
+    const m=el('p','m',[a.source,fmtShort(a.t),a.score+'/5'].join(' · '));c.append(h,m);
+    if(a.takeaway)c.append(el('p',null,a.takeaway));w.append(c)});
+  $('topwrap').hidden=!T.length;
+  requestAnimationFrame(()=>w.querySelectorAll('.tc').forEach(c=>{const p=c.querySelector('p:not(.m)');if(!p||p.scrollHeight<=p.clientHeight+2)return;
+    const b=el('button','more-link','Read more');b.type='button';c.append(b);c.classList.add('x');
+    const tog=()=>{const o=p.classList.toggle('open');b.textContent=o?'Show less':'Read more'};
+    c.addEventListener('click',e=>{if(!e.target.closest('a'))tog()})}))}
+
+// ── The log: newest first, in batches that load as you scroll ────
+let shown=0,rows=[];
+function list(reset){const ol=$('log');
+  if(reset){ol.replaceChildren();A.forEach(a=>a.el=null);rows=A.filter(ok);shown=0;ol._last=''}
+  const next=rows.slice(shown,shown+BATCH);
+  if(reset&&!rows.length)ol.append(el('li','none','Nothing matches that. Try a different word or clear the filters.'));
+  next.forEach(a=>{const mk=new Date(a.t).toLocaleDateString('en-GB',{month:'long',year:'numeric'});
+    if(mk!==ol._last){ol._last=mk;ol.append(el('li','mh',mk))}
+    const li=el('li','it'+(reset?'':' new'));a.el=li;
+    const d=el('span','dot');d.style.background=hsl(CATS[a.c]);
+    const h=el('h3');if(isUrl(a.url)){const l=el('a',null,a.title);l.href=a.url;l.target='_blank';l.rel='noopener noreferrer';h.append(l)}else h.textContent=a.title;
+    li.append(d,h,el('div','m',[a.source,a.author,fmt(a.t),a.score!=null?a.score+'/5':'',CATS[a.c].n].filter(Boolean).join(' · ')));
+    if(a.takeaway)li.append(el('p','tk',a.takeaway));ol.append(li)});
+  shown+=next.length;
+  requestAnimationFrame(()=>ol.querySelectorAll('.tk:not([data-m])').forEach(x=>{x.dataset.m=1;if(x.scrollHeight>x.clientHeight+2){
+    const b=el('button','more-link','Read more');b.type='button';b.onclick=()=>{const o=x.classList.toggle('open');b.textContent=o?'Show less':'Read more'};x.after(b)}}));
+  $('logcount').textContent=(filtering()?rows.length+' of '+A.length:A.length)+' articles';
+  const lm=$('loadmore');lm.hidden=shown>=rows.length;$('morebtn').textContent='Show more · '+shown+' of '+rows.length}
+$('morebtn').onclick=()=>list(false);
+new IntersectionObserver(es=>{if(es[0].isIntersecting&&shown<rows.length)list(false)},{rootMargin:'400px'}).observe($('loadmore'));
+function reveal(a){if(!ok(a)){F={q:'',s:'',m:0,c:-1};$('q').value='';$('src').value='';$('min').value='0';apply()}
+  while(!a.el&&shown<rows.length)list(false);
+  if(a.el){a.el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});a.el.classList.add('flash');setTimeout(()=>a.el&&a.el.classList.remove('flash'),1600)}}
+
+let qt;$('q').addEventListener('input',e=>{clearTimeout(qt);qt=setTimeout(()=>{F.q=e.target.value.trim().toLowerCase();apply()},120)});
+$('src').addEventListener('change',e=>{F.s=e.target.value;apply()});
+$('min').addEventListener('change',e=>{F.m=+e.target.value;apply()});
+
+// ── The playground: soft bubbles you can drag, throw and drop ────
+// Gravity on: bubbles pile up in one column per subject, so the height of
+// each pile shows how much I read of it. Gravity off: they float into soft
+// clusters. Size always shows score (and fades a little with age).
+const Play=(()=>{
+  const box=$('play'),cv=$('cv'),cx=cv.getContext('2d'),tip=$('tip');
+  let W=0,H=0,dpr=1,B=[],grav=true,awake=0,drag=null,hover=null,selB=null,cols=[],centres=[],sprites=[],raf=0,visible=true,floor=0;
+  const LABEL=34;                                  // space under the piles for subject names
+
+  // one pre-rendered sprite per subject: soft gradient, gentle shadow, a little gloss
+  function makeSprites(){sprites=CATS.map(c=>{const S=160,p=24,s=document.createElement('canvas');s.width=s.height=S+p*2;const g=s.getContext('2d'),r=S/2,o=p+r;
+    g.shadowColor='rgba(70,50,20,.13)';g.shadowBlur=22;g.shadowOffsetY=8;g.beginPath();g.arc(o,o,r,0,7);g.fillStyle=hsl(c);g.fill();g.shadowColor='transparent';
+    const gr=g.createLinearGradient(o-r*.6,o-r,o+r*.6,o+r);gr.addColorStop(0,hsl(c,9));gr.addColorStop(1,hsl(c,-4));
+    g.beginPath();g.arc(o,o,r,0,7);g.fillStyle=gr;g.fill();
+    g.lineWidth=2;g.strokeStyle='rgba(255,255,255,.28)';g.beginPath();g.arc(o,o,r-1,0,7);g.stroke();
+    return{img:s,scale:(S+p*2)/S}})}
+
+  function layout(){
+    const present=[...new Set(B.map(b=>b.c))].sort((x,y)=>B.filter(b=>b.c===y).length-B.filter(b=>b.c===x).length);
+    // gravity: one column per subject, width proportional to its share so piles stay in proportion
+    const tot=B.reduce((s,b)=>s+b.r*b.r,0)||1;let x=10;cols=[];
+    present.forEach(c=>{const share=B.filter(b=>b.c===c).reduce((s,b)=>s+b.r*b.r,0)/tot,w=Math.max(70,share*(W-20));cols[c]={x0:x,x1:x+w,cx:x+w/2};x+=w});
+    const k=(W-20)/Math.max(1,x-10);present.forEach(c=>{const C=cols[c];C.x0=10+(C.x0-10)*k;C.x1=10+(C.x1-10)*k;C.cx=(C.x0+C.x1)/2});
+    // floating: subjects arranged on a gentle ellipse around the middle
+    centres=[];const n=present.length;present.forEach((c,i)=>{const t=-Math.PI/2+i*2*Math.PI/n;
+      centres[c]={x:W/2+Math.cos(t)*(W/2-90)*(n>1?.78:0),y:H/2+20+Math.sin(t)*(H/2-80)*(n>1?.72:0)}})}
+
+  function size(){const r=box.getBoundingClientRect();dpr=Math.min(2,devicePixelRatio||1);
+    const ow=W,oh=H;W=r.width;H=r.height;floor=H-LABEL;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);return[ow,oh]}
+
+  function radii(){const r0=B.map(b=>8+48*weight(b.a)),area=r0.reduce((s,r)=>s+Math.PI*r*r,0);
+    const k=Math.min(1.7,Math.sqrt((W<600?.5:.40)*W*(H-LABEL-40)/Math.max(area,1)));B.forEach((b,i)=>{b.r=Math.max(coarse?7:6,r0[i]*k);b.e=b.r*(grav?1:.78);label(b)})}
+
+  // titles on the larger bubbles, wrapped once and cached
+  function label(b){b.lines=null;if(b.r<34)return;const fs=Math.max(11,Math.min(16,b.r/3.6)),n=Math.floor(1.55*b.r/(fs*.5)),ls=[];let l='';
+    for(const w of b.a.title.split(/\s+/)){if((l+' '+w).trim().length>n&&l){ls.push(l);l=w}else l=(l+' '+w).trim()}ls.push(l);
+    const sh=ls.slice(0,3);if(ls.length>3)sh[2]=sh[2].slice(0,Math.max(4,n-1)).replace(/\s+\S*$/,'')+'…';b.lines=sh;b.fs=fs}
+
+  function setData(list){
+    const old=new Map(B.map(b=>[b.a.title+b.a.date,b]));size();
+    B=list.map((a,i)=>{const o=old.get(a.title+a.date);
+      return o?Object.assign(o,{a,c:a.c}):{a,c:a.c,x:0,y:0,px:0,py:0,r:10,lines:null,fs:12,born:i}});
+    radii();layout();
+    const fresh=B.filter(b=>!b.placed);
+    fresh.forEach((b,i)=>{const C=cols[b.c];b.x=b.px=C.x0+b.r+Math.random()*Math.max(1,C.x1-C.x0-2*b.r);
+      b.y=b.py=-b.r-Math.random()*H*1.4-i*1.2;b.placed=true});   // they drop in from above, oldest last so new ones sit on top
+    if(reduce){for(let i=0;i<500;i++)step()}
+    wake(400);box.classList.add('ready');refilter()}
+
+  function refilter(){B.forEach(b=>b.m=ok(b.a));wake(30)}
+  function select(a){selB=a?B.find(b=>b.a===a):null;wake(10)}
+  function wake(f){awake=Math.max(awake,f);if(!raf&&visible)raf=requestAnimationFrame(frame)}
+
+  // simple verlet physics with a spatial grid so it stays fast with hundreds of bubbles
+  function step(){
+    const g=grav?.42:0;
+    for(const b of B){if(b===drag)continue;
+      let vx=(b.x-b.px)*(grav?.985:.93),vy=(b.y-b.py)*(grav?.985:.93);b.px=b.x;b.py=b.y;
+      if(grav){const C=cols[b.c];vx+=(C.cx-b.x)*.0026;vy+=g}
+      else{const C=centres[b.c];vx+=(C.x-b.x)*.0045;vy+=(C.y-b.y)*.0045}
+      const sp=Math.hypot(vx,vy);if(sp>40){vx*=40/sp;vy*=40/sp}
+      b.x+=vx;b.y+=vy}
+    let mr=1;for(const b of B)if(b.e>mr)mr=b.e;const cs=2*mr;
+    for(let it=0;it<3;it++){const grid=new Map();
+      for(let i=0;i<B.length;i++){const b=B[i],k=Math.floor(b.x/cs)*1e5+Math.floor(b.y/cs);let a=grid.get(k);if(!a)grid.set(k,a=[]);a.push(i)}
+      for(let i=0;i<B.length;i++){const p=B[i],gx=Math.floor(p.x/cs),gy=Math.floor(p.y/cs);
+        for(let ox=-1;ox<=1;ox++)for(let oy=-1;oy<=1;oy++){const a=grid.get((gx+ox)*1e5+gy+oy);if(!a)continue;
+          for(const j of a){if(j<=i)continue;const q=B[j],dx=q.x-p.x,dy=q.y-p.y,m=p.e+q.e+1;if(dx>m||dx<-m||dy>m||dy<-m)continue;
+            const d=Math.hypot(dx,dy)||.01;if(d<m){const f=(m-d)/d,wp=p===drag?0:q===drag?1:.5,wq=1-wp;
+              p.x-=dx*f*wp;p.y-=dy*f*wp;q.x+=dx*f*wq;q.y+=dy*f*wq}}}}
+      for(const b of B){if(b===drag)continue;const e=b.e,top=grav?-1e4:e+46,fl=grav?floor:H-8;
+        if(b.x<e){b.x=e;b.px=b.x+(b.x-b.px)*.4}else if(b.x>W-e){b.x=W-e;b.px=b.x+(b.x-b.px)*.4}
+        if(b.y>fl-e){b.y=fl-e;b.py=b.y+(b.y-b.py)*.3}else if(b.y<top){b.y=top;b.py=b.y}}}}
+
+  function energy(){let e=0,n=0;for(const b of B){if(b.y<-b.r)return 1e9;e+=Math.abs(b.x-b.px)+Math.abs(b.y-b.py);n++}return n?e/n:0}
+
+  function draw(){cx.clearRect(0,0,W,H);const hl=filtering();
+    // bubbles: faded ones first, highlighted last
+    cx.textAlign='center';cx.textBaseline='middle';
+    const order=hl?B.filter(b=>!b.m).concat(B.filter(b=>b.m)):B;
+    for(const b of order){if(b.y+b.e<0||b.y-b.e>H)continue;const s=sprites[b.c],R=b.e*(b===selB?1.08:b===hover||b===drag?1.04:1),D=R*2*s.scale;
+      cx.globalAlpha=hl&&!b.m?.14:1;cx.drawImage(s.img,b.x-D/2,b.y-D/2,D,D);
+      if(b===selB){cx.globalAlpha=1;cx.lineWidth=2.5;cx.strokeStyle='#1e1b17';cx.beginPath();cx.arc(b.x,b.y,R+4,0,7);cx.stroke()}
+      if(b.lines&&(!hl||b.m)&&b.e>=34){cx.globalAlpha=1;cx.fillStyle='rgba(30,27,23,.86)';cx.font='500 '+b.fs+'px Newsreader,Georgia,serif';
+        b.lines.forEach((l,i)=>cx.fillText(l,b.x,b.y+(i-(b.lines.length-1)/2)*b.fs*1.12))}}
+    // subject names under each pile (gravity) or above each cluster (floating)
+    cx.font='500 12px Inter,system-ui,sans-serif';cx.textAlign='center';cx.textBaseline='middle';
+    const used=[...new Set(B.map(b=>b.c))];
+    for(const c of used){const C=CATS[c],n=B.filter(b=>b.c===c).length;let x,y;
+      if(grav){x=cols[c].cx;y=H-LABEL/2-2}else{let top=1e9,sx=0,k=0;for(const b of B)if(b.c===c){top=Math.min(top,b.y-b.e);sx+=b.x;k++}x=sx/k;y=Math.max(60,top-14)}
+      let t=C.n+'  '+n,w=cx.measureText(t).width;
+      if(grav){const room=cols[c].x1-cols[c].x0-22;if(w>room){t=C.n.split(' ')[0]+'  '+n;w=cx.measureText(t).width}if(w>room){t=String(n);w=cx.measureText(t).width}}cx.globalAlpha=hl&&F.c>=0&&F.c!==c?.35:1;
+      if(!grav){cx.fillStyle='rgba(255,252,247,.92)';cx.beginPath();cx.roundRect(x-w/2-18,y-12,w+30,24,12);cx.fill()}
+      cx.fillStyle=hsl(C);cx.beginPath();cx.arc(x-w/2-8,y,4.5,0,7);cx.fill();cx.fillStyle='#6b655c';cx.fillText(t,x+2,y)}
+    if(grav){cx.globalAlpha=1;cx.strokeStyle='#ebe3d6';cx.lineWidth=1;cx.beginPath();cx.moveTo(14,floor+.5);cx.lineTo(W-14,floor+.5);cx.stroke()}
+    cx.globalAlpha=1}
+
+  function frame(){raf=0;if(!visible)return;
+    if(awake>0){const steps=drag?1:1;for(let i=0;i<steps;i++)step();awake--;if(!drag&&awake<=0&&energy()>.06)awake=20}
+    draw();if(awake>0||drag)raf=requestAnimationFrame(frame)}
+
+  // ── pointer: drag to move, release to throw, tap to open ───────
+  function at(x,y,pad){let best=null,bd=1e9;for(const b of B){if(filtering()&&!b.m)continue;const d=Math.hypot(b.x-x,b.y-y)-b.e;if(d<bd){bd=d;best=b}}return bd<(pad||0)?best:null}
+  function pos(e){const r=cv.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]}
+  let start=null,hist=[];
+  function down(x,y,pad){const b=at(x,y,pad);if(!b)return false;drag=b;start={x,y,t:performance.now(),b};hist=[[x,y,performance.now()]];
+    b.ox=b.x-x;b.oy=b.y-y;box.style.cursor='grabbing';hideTip();$('hint').style.opacity=0;wake(60);return true}
+  function move(x,y){if(!drag)return;hist.push([x,y,performance.now()]);if(hist.length>5)hist.shift();
+    drag.px=drag.x;drag.py=drag.y;drag.x=Math.max(drag.r,Math.min(W-drag.r,x+drag.ox));drag.y=Math.max(drag.r,Math.min(floor-drag.r,y+drag.oy));wake(60)}
+  function up(x,y){if(!drag)return;const b=drag,moved=Math.hypot(x-start.x,y-start.y),dt=performance.now()-start.t;
+    if(moved<6&&dt<450){b.px=b.x;b.py=b.y;selB=b;choose(b.a)}
+    else{const h0=hist[0],h1=hist[hist.length-1],t=Math.max(16,h1[2]-h0[2]);const vx=(h1[0]-h0[0])/t*16,vy=(h1[1]-h0[1])/t*16;b.px=b.x-vx;b.py=b.y-vy}
+    drag=null;box.style.cursor='';wake(240)}
+  cv.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')return;const[x,y]=pos(e);if(down(x,y,2)){cv.setPointerCapture(e.pointerId);e.preventDefault()}});
+  cv.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const[x,y]=pos(e);if(drag){move(x,y);return}
+    const b=at(x,y,1);if(b!==hover){hover=b;wake(2)}box.style.cursor=b?'grab':'';if(b)showTip(b,x,y);else hideTip()});
+  cv.addEventListener('pointerup',e=>{if(e.pointerType==='touch')return;const[x,y]=pos(e);up(x,y)});
+  cv.addEventListener('pointerleave',()=>{if(!drag){hover=null;hideTip();wake(2)}});
+  // touch: only claim the gesture when it starts on a bubble, so the page still scrolls elsewhere
+  cv.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;const[x,y]=pos(e.touches[0]);if(down(x,y,10))e.preventDefault()},{passive:false});
+  cv.addEventListener('touchmove',e=>{if(!drag)return;e.preventDefault();const[x,y]=pos(e.touches[0]);move(x,y)},{passive:false});
+  cv.addEventListener('touchend',e=>{if(!drag)return;const t=e.changedTouches[0],[x,y]=pos(t);up(x,y)});
+  cv.addEventListener('touchcancel',()=>{if(drag){drag=null;wake(120)}});
+
+  function showTip(b,x,y){const a=b.a;tip.replaceChildren(a.title,el('small',null,[a.source,a.score!=null?a.score+'/5':'',CATS[a.c].n].filter(Boolean).join(' · ')));
+    tip.classList.add('on');const tw=tip.offsetWidth,th=tip.offsetHeight;let tx=x+14,ty=y+16;if(tx+tw>W-8)tx=x-tw-14;if(ty+th>H-8)ty=y-th-14;tip.style.left=tx+'px';tip.style.top=ty+'px'}
+  function hideTip(){tip.classList.remove('on')}
+
+  // gravity switch
+  const gs=$('grav');gs.onclick=()=>{grav=!grav;gs.setAttribute('aria-checked',grav);
+    for(const b of B)b.e=b.r*(grav?1:.78);
+    if(!grav)for(const b of B){b.py=b.y+2+Math.random()*3}   // a small lift so they float up rather than snap
+    wake(500)};
+
+  // keep sizes right on any screen; pause when the playground is off screen
+  let rt;new ResizeObserver(()=>{clearTimeout(rt);rt=setTimeout(()=>{if(!B.length)return;const[ow,oh]=size();if(!ow)return;
+    const sx=W/ow,sy=H/oh;B.forEach(b=>{b.x*=sx;b.px*=sx;b.y*=sy;b.py*=sy});radii();layout();wake(200)},120)}).observe(box);
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible)wake(20)}).observe(box);
+  document.addEventListener('visibilitychange',()=>{visible=!document.hidden;if(visible)wake(20)});
+  // on wide screens the playground fills the rest of the first screen, so the whole pile is visible
+  function fit(){if(innerWidth>900){const t=box.getBoundingClientRect().top+scrollY;box.style.height=Math.round(Math.min(720,Math.max(420,innerHeight-t-24)))+'px'}else box.style.height=''}
+  fit();addEventListener('resize',fit);
+  if(innerWidth<520)$('hint').textContent=coarse?'Drag or tap a bubble':'Drag or click a bubble';
+  else if(!coarse)$('hint').textContent='Drag the bubbles around · click one to read my notes';
+  makeSprites();
+  return{setData,refilter,select,fit}
+})();
+
+// Esc closes the details
+addEventListener('keydown',e=>{if(e.key==='Escape'&&sel){sel=null;Play.select(null);panel()}});
+panel();
+if(DATA_URL)load();else{fetch('data.json').then(r=>r.json()).then(init)}
+</script>
+</body>
+</html>
