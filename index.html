@@ -274,9 +274,14 @@ function showError(){const s=$('status');s.hidden=false;s.replaceChildren();
 
 // ── Data in ───────────────────────────────────────────────────────
 function weight(a){const s=a.score??2.5,age=(Date.now()-a.t)/864e5,tau=15*2**(s-1);return(((s-1)/4)**1.7)*(.45+.55*Math.exp(-age/tau))}
+// One consistent name per publication, whether the capture page saved a name or a web address
+const SRC_NAMES={'aeon.co':'Aeon','aeon':'Aeon','ft.com':'FT','financial times':'FT','newyorker.com':'The New Yorker','economist.com':'The Economist','wired.com':'Wired','noemamag.com':'NOEMA','theatlantic.com':'The Atlantic','prospectmagazine.co.uk':'The Prospect','scmp.com':'South China Morning Post','chathamhouse.org':'Chatham House','institute.global':'Tony Blair Institute','futurism.com':'Futurism'};
+const srcName=s=>{if(!s)return s;const k=String(s).trim().toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'').replace(/\/.*$/,'');return SRC_NAMES[k]||String(s).trim()};
+// Drop a site's name tacked onto the end of a headline, e.g. " | Aeon Essays"
+const cleanTitle=t=>String(t).replace(/\s+[|–—]\s+(Aeon( Essays| Videos)?|The New Yorker|WIRED|Wired|The Atlantic|Financial Times|FT|The Economist|NOEMA|Noema)\s*$/,'').trim();
 function init(d){
   // newest first; on the same day, the later row in the Sheet counts as the more recent read
-  A=d.filter(a=>a&&a.title).map((a,i)=>({...a,t:a.date?Date.parse(a.date):Date.now(),row:i,c:undefined})).sort((x,y)=>(y.t-x.t)||(y.row-x.row));
+  A=d.filter(a=>a&&a.title).map((a,i)=>({...a,source:srcName(a.source),title:cleanTitle(a.title),t:a.date?Date.parse(a.date):Date.now(),row:i,c:undefined})).sort((x,y)=>(y.t-x.t)||(y.row-x.row));
   A.forEach(cat);
   const n=A.length;P=A.slice(0,PILE_NEW);
   if(n>PILE_NEW){const fav=A.slice(PILE_NEW).filter(a=>(a.score??0)>=PILE_FAV).sort((x,y)=>(y.score-x.score)||(y.t-x.t)).slice(0,PILE_MAX-PILE_NEW);P=P.concat(fav)}
