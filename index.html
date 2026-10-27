@@ -16,6 +16,9 @@
 <meta property="og:image:alt" content="Soft coloured bubbles, one per article read, under the title Finlay Riddell’s reading log">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://finnriddell.github.io/reading-log/">
+<!-- Security: the browser may only load scripts from this page and GoatCounter, fetch data only from the
+     Google feed, and send nothing anywhere else. Everything else is refused. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://gc.zgo.at; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://finnriddell.goatcounter.com; img-src 'self' data: https://finnriddell.github.io https://finnriddell.goatcounter.com; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#f6f1e8">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='11' cy='21' r='9' fill='%2385a8ef'/%3E%3Ccircle cx='23' cy='22' r='7' fill='%23a99bf0'/%3E%3Ccircle cx='17' cy='9' r='6' fill='%23f2a97e'/%3E%3C/svg%3E">
 <!-- the article feed lives on Google; warming up the connection early saves a round trip -->
