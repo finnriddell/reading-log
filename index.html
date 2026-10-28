@@ -124,6 +124,32 @@ h1{font:500 clamp(30px,3.8vw,44px)/1.08 var(--serif);letter-spacing:-.015em;marg
 .stat b{display:block;font:500 24px/1.1 var(--serif)}.stat span{font-size:12px;color:var(--muted)}
 .empty-hint{font-size:14px;color:var(--muted);margin:0}
 
+/* ── Review card: opens over the page when a bubble is clicked ──── */
+.review{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100%;height:100%;margin:0;display:none;align-items:center;justify-content:center}
+.review[open]{display:flex}
+.review::backdrop{background:rgba(30,27,23,.38);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+.review .card{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:0 20px 60px -12px rgba(40,25,10,.35);
+  width:min(600px,calc(100vw - 32px));max-height:min(80vh,720px);overflow:auto;padding:24px 26px 20px;animation:rv .22s cubic-bezier(.2,.9,.3,1)}
+@keyframes rv{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+.review .eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;display:flex;align-items:center;gap:8px;padding-right:40px}
+.review .eyebrow .dot{width:10px;height:10px;border-radius:50%}
+.review h2{font:500 clamp(22px,3vw,27px)/1.18 var(--serif);margin:0 0 8px;letter-spacing:-.005em;padding-right:28px}
+.review h2 a{text-decoration:none;background-image:linear-gradient(currentColor,currentColor);background-size:100% 1px;background-repeat:no-repeat;background-position:0 100%}
+.review .meta{font-size:13px;color:var(--muted);margin:0 0 18px}
+.review .label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.review .take{font:400 19px/1.55 var(--serif);color:var(--ink);margin:0 0 18px;white-space:pre-line}
+.review .note{font-size:14px;color:var(--muted);margin:0 0 10px}
+.review .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.review .x{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--paper);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;color:var(--ink2)}
+.review .x:hover{background:#f3ece1}
+.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}.btn.primary:hover{background:#3a352e}
+@media (max-width:600px){
+  .review{align-items:flex-end}
+  .review .card{width:100%;max-height:86svh;border-radius:var(--r-lg) var(--r-lg) 0 0;border-bottom:0;padding:22px 18px calc(18px + env(safe-area-inset-bottom));animation-name:rvup}
+  .review .take{font-size:18px}}
+@keyframes rvup{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion: reduce){.review .card{animation:none}}
+
 /* ── Sections below ─────────────────────────────────────────────── */
 section.block{margin-top:clamp(40px,7vw,72px)}
 .sh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 16px}
@@ -224,6 +250,8 @@ footer p{margin:0;max-width:80ch}
   </section>
 
 </main>
+
+<dialog class="review" id="review" aria-labelledby="review-title"><div class="card" id="reviewcard"></div></dialog>
 
 <footer class="wrap"><p>© 2026 Finlay Riddell. All rights reserved. The reading notes, scores and takeaways are my own writing. The site’s code may be viewed but not reused without permission; get in touch if you’d like to use any of it. Visits are counted anonymously with GoatCounter: no cookies and no personal data.</p></footer>
 
@@ -330,14 +358,32 @@ function panel(){const p=$('panel');p.replaceChildren();
   const h=el('h2');if(isUrl(a.url)){const l=el('a',null,a.title);l.href=a.url;l.target='_blank';l.rel='noopener noreferrer';h.append(l,' ↗')}else h.textContent=a.title;p.append(h);
   const m=el('p','meta');if(a.score!=null){m.append(scoreDots(a.score),a.score+'/5 · ')}
   m.append([a.source,a.author,fmt(a.t)].filter(Boolean).join(' · '));p.append(m);
-  if(a.takeaway)p.append(el('p','take',a.takeaway));
-  else p.append(el('p','note','My takeaway on this one is private.'));
-  if(a.liked)p.append(el('p','note','What I thought of the writing: '+a.liked));
-  if(a.themes)p.append(el('p','note','Themes: '+a.themes));
   const act=el('div','actions');
+  const r=el('button','btn primary',a.takeaway?'See review':'See details');r.type='button';r.onclick=()=>openReview(a);act.append(r);
   const f=el('button','btn','Find it in the log ↓');f.type='button';f.onclick=()=>reveal(a);act.append(f);
   const x=el('button','btn','Close');x.type='button';x.onclick=()=>{sel=null;Play.select(null);panel()};act.append(x);p.append(act)}
-function choose(a){sel=a;panel();if(window.innerWidth<=900){const p=$('panel'),r=p.getBoundingClientRect();if(r.top>innerHeight-120)p.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'})}}
+function choose(a){sel=a;panel();openReview(a)}
+
+// ── Review card: the full takeaway, opened straight from a bubble ──
+const RV=$('review'),RC=$('reviewcard');
+function openReview(a){RC.replaceChildren();const c=CATS[a.c];
+  const x=el('button','x','×');x.type='button';x.setAttribute('aria-label','Close the review');x.onclick=()=>RV.close();RC.append(x);
+  const e=el('p','eyebrow');const d=el('span','dot');d.style.background=hsl(c);e.append(d,c.n);RC.append(e);
+  const h=el('h2');h.id='review-title';if(isUrl(a.url)){const l=el('a',null,a.title);l.href=a.url;l.target='_blank';l.rel='noopener noreferrer';h.append(l,' ↗')}else h.textContent=a.title;RC.append(h);
+  const m=el('p','meta');if(a.score!=null){m.append(scoreDots(a.score),a.score+'/5 · ')}
+  m.append([a.source,a.author,fmt(a.t)].filter(Boolean).join(' · '));RC.append(m);
+  if(a.takeaway){RC.append(el('p','label','My takeaway'),el('p','take',a.takeaway))}
+  else RC.append(el('p','note','My takeaway on this one is private.'));
+  if(a.liked)RC.append(el('p','note','What I thought of the writing: '+a.liked));
+  if(a.themes)RC.append(el('p','note','Themes: '+a.themes));
+  const act=el('div','actions');
+  if(isUrl(a.url)){const o=el('a','btn primary','Read the article ↗');o.href=a.url;o.target='_blank';o.rel='noopener noreferrer';o.style.textDecoration='none';act.append(o)}
+  const f=el('button','btn','Find it in the log ↓');f.type='button';f.onclick=()=>{RV.close();reveal(a)};act.append(f);
+  RC.append(act);
+  if(!RV.open){document.body.style.overflow='hidden';RV.showModal()}
+  RC.scrollTop=0;x.focus({focusVisible:false})}
+RV.addEventListener('close',()=>{document.body.style.overflow=''});
+RV.addEventListener('click',e=>{if(e.target===RV)RV.close()});   // click outside the card closes it
 
 // ── Top reads ─────────────────────────────────────────────────────
 function tops(){const T=A.filter(a=>a.score!=null).sort((x,y)=>(y.score-x.score)||(!!y.takeaway-!!x.takeaway)||(y.t-x.t)).slice(0,6),w=$('tops');w.replaceChildren();
@@ -495,7 +541,7 @@ const Play=(()=>{
   function move(x,y){if(!drag)return;hist.push([x,y,performance.now()]);if(hist.length>5)hist.shift();
     drag.px=drag.x;drag.py=drag.y;drag.x=Math.max(drag.r,Math.min(W-drag.r,x+drag.ox));drag.y=Math.max(drag.r,Math.min(floor-drag.r,y+drag.oy));wake(60)}
   function up(x,y){if(!drag)return;const b=drag,moved=Math.hypot(x-start.x,y-start.y),dt=performance.now()-start.t;
-    if(moved<6&&dt<450){b.px=b.x;b.py=b.y;if(selB===b){selB=null;sel=null;panel()}else{selB=b;choose(b.a)}}
+    if(moved<6&&dt<450){b.px=b.x;b.py=b.y;selB=b;choose(b.a)}
     else{const h0=hist[0],h1=hist[hist.length-1],t=Math.max(16,h1[2]-h0[2]);const vx=(h1[0]-h0[0])/t*16,vy=(h1[1]-h0[1])/t*16;b.px=b.x-vx;b.py=b.y-vy}
     drag=null;box.style.cursor='';wake(240)}
   cv.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')return;const[x,y]=pos(e);if(down(x,y,2)){cv.setPointerCapture(e.pointerId);e.preventDefault()}});
@@ -534,7 +580,7 @@ const Play=(()=>{
 })();
 
 // Esc closes the details
-addEventListener('keydown',e=>{if(e.key==='Escape'&&sel){sel=null;Play.select(null);panel()}});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&sel&&!RV.open){sel=null;Play.select(null);panel()}});
 panel();
 if(DATA_URL)load();else{fetch('data.json').then(r=>r.json()).then(init)}
 </script>
